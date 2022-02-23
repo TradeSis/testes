@@ -1,0 +1,32 @@
+.btn_fundoazul.webix_secondary button{
+    background: #396d9a;
+}
+.myCss .webix_list_item.menu{
+    color: #396d9a;
+    background-color: #ffffff;
+    padding: 10px 10px 10px 30px;
+    }
+
+.app-logo {
+    background-image:url('http://tradesis.com.br/ts/img/tradesislogo.png');
+    background-size:     contain; 
+    background-repeat: no-repeat;
+   
+    }
+.myCss {
+    background: #ffffff;
+}
+.amb{
+
+    background: #ffffff;
+    color: rgb(4, 155, 255);
+    font-family: "Webix Material Icons";
+    font-size: 15px;
+}
+
+/* .icon {
+   
+        background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='200'><polygon points='13,5 6,27 24,13 2,13 20,27' style='fill:lime;stroke:purple;stroke-width:1;fill-rule:evenodd;' /></svg>") !important;
+        cursor:pointer;
+      
+} */
