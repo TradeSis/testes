@@ -9,8 +9,8 @@
 
 	<!-- Design -->
 
-	<script type="text/javascript"             src="/ts/erp/testes/dashGrafico/app.js"></script>
-	
+	<script type="text/javascript"             src="/ts/erp/testes/testesLucas/dashGrafico/app.js"></script>
+	<link    rel="stylesheet" type="text/css" href="/ts/erp/testesLucas/dashGrafico/app.css">
 
 
 </head>

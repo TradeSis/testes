@@ -13,7 +13,6 @@
 		</style>
 
 	<script>
-
 var wURL = '';
 
 function chamaAJAX(wURL,wType="get",wdataType="json") {
@@ -275,7 +274,7 @@ const form_parcelas = {
         { view:"text", name:"dtpag", label:"Dt Pag", invalidMessage:"Must be less than 100000" }, 
         {
             margin:10, cols:[
-                { view:"button", id:"btn_save", value:"Salvar",click:saveParcelas},
+                { view:"button", id:"btn_save", value:"Save",click:saveParcelas},
                 { view:"button", id:"btn_clear", value:"Clear", click:clearParcelas}
                 
             ]

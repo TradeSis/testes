@@ -2,7 +2,7 @@
 // #A2 - TITULO
 var wTitulo = {
           "view": "label",
-          "label": "Loja de Roupas",
+          "label": "GRID E GRAFICOS",
           "id": "wTitulo",
           "height": 0
         };
@@ -166,14 +166,24 @@ var wGridFor = {
       "view": "datatable",
       "columns": [
         {
-          "id": "DtEmissao",
-          "header": "Data ",
+          "id": "TotalVendasF",
+          "header": "Vendas Fornecedores",
           "sort": "string"
         },
         {
-          "id": "Valor",
-          "header": "Valor",
+          "id": "TotalVendasC",
+          "header": "Vendas Clientes",
           "sort": "string"
+        },
+        {
+          "id":"MaisVendidosF",
+          "header":"Produtos mais comprados",
+          "sort":"string"
+        },
+        {
+          "id":"MaisVendidosC",
+          "header":"Produtos mais vendidos",
+          "sort":"string"
         }
         
       ],
@@ -190,8 +200,8 @@ var wGridFor = {
 var tgrafico = {
   "id": "tgrafico",
   "type": "bar",
-  "value": "#valorTotal#",                          // #3 - Dados que REALMENTE "CONTROLAM" o grafico
-  "label": "#valorTotal#", //#templete#   -  // #2 - Dados que irão em CIMA do grafico
+  "value": "#quantidadeProduto#",                          // #3 - Dados que REALMENTE "CONTROLAM" o grafico
+  "label": "#quantidadeProduto#", //#templete#   -  // #2 - Dados que irão em CIMA do grafico
   "view": "chart",
 
   yAxis:{},
@@ -219,16 +229,16 @@ var tgrafico2 = {
 
 var tgrafico3 = {
   "id": "tgrafico3",
-  "type": "bar",
-  "value": "#Valor#",         
-  "label": "#Valor#",
+  "type": "pie3D",
+  "value": "#TotalVendasF#",         
+  "label": "#TotalVendasF#",
   "view": "chart",
- // legend:"#ano#",
+
   yAxis:{},
   xAxis:{
     lines:true,
-    title:"Mais Vendidos ano #ano#",
-    template:"#anomes#"                       
+    title:"MaisVendidosF",
+    template:"#MaisVendidosF#"                       
   }
 };
 
@@ -398,20 +408,6 @@ var ui = {
         "valorProduto":"15,99 un",
         "valorTotal":35
        },
-       { "Fornecedores":"Mega Saldão",
-       "cnpj":"123469021",
-       "codigoProduto":"000002",
-       "quantidadeProduto":"250 un",
-       "valorProduto":"15,99 un",
-       "valorTotal":5
-      },
-       { "Fornecedores":"Saldão de Roupas",
-       "cnpj":"123469021",
-       "codigoProduto":"000001",
-       "quantidadeProduto":"250 un",
-       "valorProduto":"15,99 un",
-       "valorTotal":35
-      },
        { "Fornecedores":"Saldão de Roupas",
        "cnpj":"123454521",
        "codigoProduto":"000002",
@@ -481,126 +477,32 @@ var ui = {
       ];
 
        $$("wGridFor").parse(vJsonFor);  //tabela
-       
-       /* Rotina para Ler o Json e Criar um outra Variavel JSON com os Valores Somados*/
-        vjsonForAcum = [];
-        for(var i in vJsonFor) {
+       $$("tgrafico").parse(vJsonFor);  //grafico
 
-          //alert("CAMPO= "+JSON.stringify(vJsonFor[i], null, 4));
-
-          
-          var index = vjsonForAcum.findIndex(x => x.Fornecedores == vJsonFor[i].Fornecedores);
-          //alert(vJsonFor[i].Fornecedores);
-          //alert(index);
-
-          if (index == -1) {
-                
-            vjsonForAcum.push({ "Fornecedores": vJsonFor[i].Fornecedores,
-                               "valorTotal": vJsonFor[i].valorTotal});
-          } else {
-            
-         
-            vjsonForAcum[index].valorTotal += vJsonFor[i].valorTotal;
-          }
-               
-
-        }
-        //alert("RESULTADO= "+JSON.stringify(vjsonForAcum, null, 4));
-       
-       $$("tgrafico").parse(vjsonForAcum);  //grafico
-       /**/
 
        $$("wGridCli").parse(vJsonCli);
        $$("tgrafico2").parse(vJsonCli);  //grafico
 
       var vJsonRes =
       [
-        {"DtEmissao":"2021-01-10",
-        "Valor":110
+        {"TotalVendasF":2050,
+        "TotalVendasC":1570,
+        "MaisVendidosF":"Distribuidora",
+        "MaisVendidosC":"Kalita"
         },
-        {"DtEmissao":"2021-01-11",
-        "Valor":111
+        {"TotalVendasF":6542,
+        "TotalVendasC":5451,
+        "MaisVendidosF":"Mega 10",
+        "MaisVendidosC":"João"
         },
-        {"DtEmissao":"2021-01-12",
-        "Valor":210
-        },
-        {"DtEmissao":"2021-02-11",
-        "Valor":211
-        },
-        {"DtEmissao":"2021-03-10",
-        "Valor":310
-        },
-        {"DtEmissao":"2021-03-11",
-        "Valor":311
-        },
-        {"DtEmissao":"2021-03-12",
-        "Valor":312
-        },
-        {"DtEmissao":"2021-05-10",
-        "Valor":510
-        },
-        {"DtEmissao":"2021-06-10",
-        "Valor":610
-        },
-        {"DtEmissao":"2022-06-11",
-        "Valor":611
-        },
-      ];
-
-      
-       $$("wGridRes").parse(vJsonRes);
-       
-
-      /* Rotina para Ler o Json e Criar um outra Variavel JSON com os Valores Somados*/
-       pano = "2021";
-
-       $$("tgrafico3").define("xAxis", {
-        lines:true,
-        title:"Mais Vendidos ano " + pano,
-        template:"#anomes#"                       
-      });
-       $$("tgrafico3").refresh();
-      
-     
-        vjsonResAcum = [];
-        for(var i in vJsonRes) {
-
-          //alert("CAMPO= "+JSON.stringify(vJsonRes[i], null, 4));
-
-          var warraysplit = (vJsonRes[i].DtEmissao.split('-'));
-        //  alert("0="+warraysplit[0]+" 1="+warraysplit[1]+" 2="+warraysplit[2])
-           wanomes = warraysplit[1];
-           wano    = warraysplit[0];
-           if (wano == pano) {
-            
-            
-           } else {
-            continue;
-           }
-         
-          
-          var index = vjsonResAcum.findIndex(x => x.anomes == wanomes);
-          //alert(vJsonFor[i].Fornecedores);
-          //alert(index);
-
-          if (index == -1) {
-                
-            vjsonResAcum.push({ "ano":wano,
-                                "anomes": wanomes,
-                                "Valor": vJsonRes[i].Valor});
-          } else {
-            
-         
-            vjsonResAcum[index].Valor += vJsonRes[i].Valor;
-          }
-               
-
+        {"TotalVendasF":5050,
+        "TotalVendasC":3511,
+        "MaisVendidosF":"Megao Saldão",
+        "MaisVendidosC":"Lucas"
         }
-        //alert("RESULTADO= "+JSON.stringify(vjsonForAcum, null, 4));
-       $$("tgrafico3").parse(vjsonResAcum);  //grafico
-      
-       /**/
-       
+      ];
+       $$("wGridRes").parse(vJsonRes);
+       $$("tgrafico3").parse(vJsonRes); 
       
 
 }); 
