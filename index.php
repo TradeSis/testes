@@ -9,14 +9,14 @@
 
 
 	<!-- Design -->
-	<link rel="stylesheet" type="text/css" href="/ts/erp/testes/testesLucas/pagInicial.css">	
+	<link rel="stylesheet" type="text/css" href="/ts/testes/pagInicial.css">	
 	<style>
 		
 	
 				
 
 	</style>
-	<script type="text/javascript"          src="/ts/erp/testes/testesLucas/pagInicial.js"></script>
+	<script type="text/javascript"          src="/ts/testes/pagInicial.js"></script>
 	
 </head>
 <body></body>
