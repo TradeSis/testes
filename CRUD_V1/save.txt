@@ -1,0 +1,12 @@
+conectando mysql=u384787522_tswebdev
+ESTOU AQUI
+codigoCliente = 2
+numContrato = 3
+numParcela = 4
+dtemi = 
+dtven = 
+valor = 55
+dtpag = 
+webix_operation = insert
+insert
+ SQL INSERT INTO `parcelas` (`codigoCliente`, `numContrato`, `numParcela`, `dtemi`, `dtven`, `valor`, `dtpag`) VALUES (2, 3, 4, '', '', 55 , dtpag=   NULL )

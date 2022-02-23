@@ -1,0 +1,9 @@
+conectando mysql=u384787522_tswebdev
+ESTOU AQUI
+ID = 
+username = Lucas
+password = 45687
+webix_operation = insert
+insert
+ SQL INSERT INTO `tslogin` (`username`, `password`) VALUES ('Lucas', '45687')
+Error: INSERT INTO `tslogin` (`username`, `password`) VALUES ('Lucas', '45687')<br>Duplicate entry 'Lucas' for key 'PRIMARY'

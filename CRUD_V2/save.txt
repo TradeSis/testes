@@ -1,0 +1,10 @@
+conectando mysql=u384787522_tswebdev
+ESTOU AQUI
+empresa = TRADESIS
+ano = 2019
+mes = 1
+vlrVendas = 16450.50
+qtdVendas = 1
+id = 1644359591561
+webix_operation = delete
+delete

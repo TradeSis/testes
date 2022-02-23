@@ -1,0 +1,16 @@
+conectando mysql=u384787522_tswebdev
+ESTOU AQUI
+codigoCliente = 1
+numContrato = 2
+numParcela = 3
+dtemi = 2022-02-02
+dtven = 2022-02-02
+valor = 44.00
+dtpag = 
+id = 1643314930042
+webix_operation = update
+update
+ dtpag =  
+ SQL UPDATE parcelas SET dtven='2022-02-02', valor=44.00, dtpag= NULL  WHERE codigoCliente=1 and 
+        numContrato = 2 and
+        numParcela = 3

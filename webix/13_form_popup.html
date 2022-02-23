@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="/ts/js/webix/codebase/skins/flat.min.css" type="text/css"   charset="utf-8">
+		<script src="/ts/js/webix/codebase/webix.min.js" type="text/javascript" charset="utf-8"></script>
+	
+		<title>Windows: Form inside</title>
+	</head>
+	<body>
+		<div class='header_comment'>Window with form inside</div>
+		<script type="text/javascript" charset="utf-8">
+
+var form = {
+            id:"formulario",
+			view:"form",
+			borderless:true,
+			elements: [
+				{ id:"login", view:"text", label:'Login', name:"login" },
+				{ view:"text", label:'Email', name:"email" },
+				{ view:"button", value: "Submit", click:function(){
+
+                    
+
+
+					if (this.getParentView().validate()){ //validate form
+                       //  webix.message("All is correct");
+                       var conteudo = this.getFormView().getValues().email;
+
+                        executa(conteudo);
+
+                        this.getTopParentView().hide(); //hide window
+                    }
+					else
+						webix.message({ type:"error", text:"Form data is invalid" });
+				}}
+			],
+			rules:{
+				"email":webix.rules.isEmail,
+				"login":webix.rules.isNotEmpty
+			},
+			elementsConfig:{
+				labelPosition:"top",
+			}
+		};
+
+        webix.ui({
+            view:"popup",
+            id:"win1",
+            width:300,
+            head:false,
+            body:webix.copy(form)
+        });
+
+
+        function showForm(winId, node){
+            $$(winId).getBody().clear();
+            $$(winId).show(node);
+            $$(winId).getBody().focus();
+        }
+
+        webix.ui({
+            align:"left",
+            body:{
+                height:40, 
+                margin:10,
+                cols:[
+                   
+                    { view:"button",
+                        width:300, value: 'Click to show a popup with a form',
+                        click:function(){ showForm("win1", this.$view) }
+                    }
+                ]
+            }
+        });
+
+        function executa(wvar){
+
+            alert ("eu sou a function que foi executada " + wvar);
+
+            alert ( $$("formulario").getValues().login );
+
+        }
+
+		</script>
+	</body>
+</html>
+
+			
+		

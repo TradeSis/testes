@@ -1,0 +1,10 @@
+conectando mysql=u384787522_tswebdev
+ESTOU AQUI
+codigoCliente = 1513
+numContrato = 3333
+numParcela = 1
+dtemi = 2021-12-12
+dtven = 2022-12-12
+valor = 33
+dtpag = 
+webix_operation = insert

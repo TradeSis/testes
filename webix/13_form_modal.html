@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="/ts/js/webix/codebase/skins/flat.min.css" type="text/css"   charset="utf-8">
+		<script src="/ts/js/webix/codebase/webix.min.js" type="text/javascript" charset="utf-8"></script>
+		<title>Windows: Form inside</title>
+	</head>
+	<body>
+		<div class='header_comment'>Window with form inside</div>
+		<script type="text/javascript" charset="utf-8">
+      
+        var wvar = '';
+     
+
+		var form = {
+            id:"formulario",
+			view:"form",
+			borderless:true,
+			elements: [
+				{ id:"login", view:"text", label:'Login', name:"login" },
+				{ view:"text", label:'Email', name:"email" },
+				{ view:"button", value: "Submit", click:function(){
+
+                    
+
+
+					if (this.getParentView().validate()){ //validate form
+                       //  webix.message("All is correct");
+                       var conteudo = this.getFormView().getValues().email;
+
+                        executa(conteudo);
+
+                        this.getTopParentView().hide(); //hide window
+                    }
+					else
+						webix.message({ type:"error", text:"Form data is invalid" });
+				}}
+			],
+			rules:{
+				"email":webix.rules.isEmail,
+				"login":webix.rules.isNotEmpty
+			},
+			elementsConfig:{
+				labelPosition:"top",
+			}
+		};
+
+        webix.ui({
+            view:"window",
+            id:"win2",
+            width:300,
+            position:"center",
+            modal:true,
+            head:"User's data",
+            body:webix.copy(form)
+        }).show();
+
+      
+        function executa(wvar){
+
+            alert ("eu sou a function que foi executada " + wvar);
+
+            alert ( $$("formulario").getValues().login );
+        
+        }
+
+		</script>
+	</body>
+</html>
+
+			
+		
