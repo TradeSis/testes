@@ -1,6 +1,6 @@
 var wTitulo = {
   "view": "label",
-  "label": "Bling com Tabelas V3.",
+  "label": "Tabela gerando graficos com acumulo de dados automático.",
   "id": "wTitulo",
   "height": 0
 };
@@ -21,70 +21,13 @@ var wToolbar = {
 
 };
 
-// #B2 - TELA PRINCIPAL - PESQUISAS
-var wPesquisa = {
-  "id": "wPesquisa",
-  "height": 100,
-  "view": "form",
-  "minHeight": 380,
-  "autoheight": false,
-  "elements": [
-    {
-      "rows": [
-        {
-          "label": "Parametros",
-          "view": "button",
-          "height": 0,
-          click:function(){ showForm("win1", this.$view) }
-        }
-      ]
-    }
-  ]
-};
-
-var wDtinicial = { id:"dtinicial","view": "datepicker", "height": 0 ,
-        
-         stringResult:true, 	icons: true};
-var wDtfinal   = { id:"dtfinal","view": "datepicker", "height": 0 ,	
-         
-        stringResult:true, icons: true};
-
-var form = {
-id:"formulario",
-view:"form",
-autowidth:true,
-borderless:true,
-"rows": [
-{
-"height": 58,
-"cols": [ wDtinicial, wDtfinal
-]
-},
-{ view:"button", value: "Pesquisa", click:function(){
-  
-         
-           
-             conteudo = $$("dtinicial").getText() + " TO " + $$("dtfinal").getText();
-             alert(conteudo);
-             
-             //01/11/2021 TO 30/11/2021
-            executa(conteudo);
-            $$("win1").hide();
-          }
-}
-],
-elementsConfig:{
-labelPosition:"top",
-}
-};
-
-var wGridBling = {
+var wGrid = {
   "view": "datatable",
   autoConfig:true,
   "columns": [
     {
-      "id": "numeroNFSe",
-      "header": "numeroNFSe",
+      "id": "fornecedor",
+      "header": "fornecedor",
       "sort": "string", adjust: true
     },
     {
@@ -93,29 +36,35 @@ var wGridBling = {
       "sort": "string", adjust: true
     },
     {
-      "id": "clienteCNPJ",
-      "header": "clienteCNPJ",
+      "id": "cpf",
+      "header": "cpf",
       "sort": "string", adjust: true
     },
     {
-      "id": "dataEmissao",
-      "header": "Dt Emissão",
+      "id": "loja",
+      "header": "loja",
       "sort": "string", adjust: true
     },
     {
-      "id": "valorNota",
-      "header": "valorNota",
-      "sort": "string", adjust: true, footer:{ content:"summColumn" }              //Soma dos valores da tabela
+      "id": "valor",
+      "header": "valor",
+      "sort": "string", adjust: true, footer:{ content:"summColumn" }
     }
   ],
   "select": true,
   "scrollX": false,
-  "id": "wGridBling",
+  
+  //"url": "http://localhost/tsweb/php/buscaparcelas.php",
+  //"url": "http://localhost/tsweb/api/dbmy/consultaParcelas",
+  "id": "wGrid",
   "height": 0,
+  //autoheight:true,
+  //autowidth:true,
+  
   footer:true
 };
 
-var wGridLocal = {
+var wGrid2 = {
   "view": "datatable",
   "columns": [
     {
@@ -124,13 +73,13 @@ var wGridLocal = {
       "sort": "string"
     },
     {
-      "id": "cliente",
-      "header": "cliente",
+      "id": "loja",
+      "header": "loja",
       "sort": "string"
     },
     {
-      "id":"cnpj",
-      "header":"Cliente CNPJ",
+      "id":"cliente",
+      "header":"cliente",
       "sort":"number"
     },
     {
@@ -139,8 +88,8 @@ var wGridLocal = {
       "sort":"string"
     },
     {
-      "id":"valorNota",
-      "header":"Valor da Nota",
+      "id":"valor",
+      "header":"Valor",
       "sort":"number"
     },
     
@@ -149,56 +98,39 @@ var wGridLocal = {
   "scrollX": false,
   
   
-  "id": "wGridLocal",
+  "id": "wGrid2",
   "height": 0,
  
 };
 
-var wGraficoBling = {
-  "id": "wGraficoBling",
+var wGrafico2 = {
+  "id": "wGrafico2",
   "type": "bar",
-  "value": "#valorNota#",         
-  "label": "#valorNota#",
-  "view": "chart",
-
-  yAxis:{},
-  xAxis:{
-    lines:true,
-    title:"Faturamento",
-    template:"#cliente#"                       
-  }
-};
-
-var wGraficoBling2 = {
-  "id": "wGraficoBling2",
-  "type": "bar",
-  "value": "#valorNota#",         
-  "label": "#valorNota#",
-  "view": "chart",
-
-  yAxis:{},
-  xAxis:{
-    lines:true,
-    title:"Cliente",
-    template:"#cliente#"                       
-  }
-};
-
-var wGraficoLocal = {
-  "id": "wGraficoLocal",
-  "type": "pie3D",
-  "value": "#valorNota#",         
-  "label": "#valorNota#",
+  "value": "#valor#",         
+  "label": "#valor#",
   "view": "chart",
 
   yAxis:{},
   xAxis:{
     lines:true,
     title:"numeroNFSe",
+    template:"#loja#"                       
+  }
+};
+var wGrafico = {
+  "id": "wGrafico",
+  "type": "bar",
+  "value": "#valor#",         
+  "label": "#valor#",
+  "view": "chart",
+
+  yAxis:{},
+  xAxis:{
+    lines:true,
+    title:"Valor comprado por cliente",
     template:"#cliente#"                       
   }
 };
-
 
 var wexport =
 ({
@@ -206,17 +138,18 @@ var wexport =
    rows:[
      {
        cols: [
-         { view:"button", width: 200, value:"Exportar para Excel", click:function(){
+         { view:"button", width: 280, value:"Exportar para Excel", click:function(){
            webix.toExcel(
-              [$$("wGridBling"),$$("wGridLocal"), $$("wGraficoBling"), $$("wGraficoLocal")],
+              [$$("wGrid"), $$("wGrid2"), $$("wGrafico"), $$("wGrafico2")],
               { filename: "My data" }
           );
 
          }},
-         { view:"button", width: 200, value:"Exportar para PDF", click:function(){
+         
+         { view:"button", width: 280, value:"Exportar para PDF", click:function(){
           // var sel = $$("vJsonGrid").getSelectedId(true);// array of selected records
  
-           webix.toPDF([$$("wGridBling"),$$("wGridLocal"), $$("wGraficoBling"), $$("wGraficoLocal")], {
+           webix.toPDF([$$("wGrid"), $$("wGrid2"), $$("wGrafico"), $$("wGrafico2")], {
               filename: "datatable"
           });
            
@@ -228,12 +161,19 @@ var wexport =
  }); 
        
 
+
+
+
+
+
+
+
   var wLinha =
  { "id": "wLinha",
    "rows": [
               
              {cols: 
-               [wGridBling, wGraficoBling, wGraficoBling2]
+               [wGrid, wGrafico]
               },           
    ]
 
@@ -244,7 +184,7 @@ var wexport =
    "rows": [
               
              {cols: 
-               [wGridLocal, wGraficoLocal]
+               [wGrid2, wGrafico2]
               },           
    ]
 
@@ -254,7 +194,6 @@ var wexport =
 var ui = {
   rows:[  
       wToolbar,
-      wPesquisa,
         wexport,
          wLinha,
          wLinha2
@@ -274,60 +213,59 @@ webix.ready(function(){
   webix.i18n.setLocale("pt-BR");
   // ATIVA UI
 
-
-  webix.ui({
-    view:"popup",
-    id:"win1",
-    width:500,
-    head:false,
-    body:webix.copy(form)
-  });
-  
   webix.ui(ui);
     
+ /************************************************************** */
+  var vJsonGrid = 
+      [
+          {
+              "fornecedor":"Ponto das Novidades",
+              "cliente":"Lucas",
+              "cpf": 96662168000131,
+              "loja": "A",
+              "valor": 1034
+          },
+          {
+            "fornecedor":"Mega Saldão",
+            "cliente":"Lucas",
+            "cpf": 9666216807771,
+            "loja": "B",
+            "valor": 984
+        },{
+          "fornecedor":"Top Ofertas",
+          "cliente":"Marcelo",
+          "cpf": 96662168007841,
+          "loja": "C",
+          "valor": 3502
+      },{
+        "fornecedor":"Top 10",
+        "cliente":"Paula",
+        "cpf": 9666216546540,
+        "loja": "D",
+        "valor": 1036
+    },{
+      "fornecedor":"Ponto da Moda",
+      "cliente":"Paula",
+      "cpf": 96662168007845,
+      "loja": "E",
+      "valor": 2056
+  },{
+    "fornecedor":"Vida Nativa",
+    "cliente":"João",
+    "cpf": 966621688956956,
+    "loja": "F",
+    "valor": 1021
+},
+{
+  "fornecedor":"Nike",
+  "cliente":"João",
+  "cpf": 96662168000131,
+  "loja": "G",
+  "valor": 2654
+},
+      ];
 
-     /* Inicializa form */
-     var dtini = new Date();
-     var dd = '01';
-     var mm = String(dtini.getMonth() + 1).padStart(2, '0'); //January is 0!
-     var yyyy = dtini.getFullYear();
-    // alert(yyyy+' '+mm+' '+dd);
-     $$("dtinicial").setValue(new Date(yyyy,mm - 1,dd));
-     var periodo = dd + '/' + mm + '/' + yyyy;
-     var hoje = new Date();
-     var dd = String(hoje.getDate()).padStart(2, '0');
-     var mm = String(hoje.getMonth() + 1).padStart(2, '0'); //January is 0!
-     var yyyy = hoje.getFullYear();
-     $$("dtfinal").setValue(new Date(yyyy,mm - 1,dd));
-     periodo += ' TO ' + dd + '/' + mm + '/' + yyyy;
-     
-
-     executa(periodo);
-    
-
-     
-  });
-
-  function showForm(winId, node){
-    $$(winId).getBody().clear();
-    $$(winId).show(node);
-    $$(winId).getBody().focus();
-  }
-
-  function executa(wvar){
-  webix.ajax("/ts/api/tsbling/buscaServicos?filters=dataEmissao["+wvar+"]; situacao[2]", function(text,data){
-    //text = data.parcelas;
-    var wJson = data.json();
-  //  alert(wJson);
-     $$("wGridBling").clearAll();
-     $$("wGridBling").parse(wJson.notasServico[0]);
-     
-     $$("wGraficoBling").clearAll();
-     $$("wGraficoBling").parse(wJson.notasServico[0]);
-
-
-     //***************** */
-     var JsonOriginal = wJson.notasServico[0];
+      var JsonOriginal = vJsonGrid;
      vjsonBling = [];
      var index = 0;
      var i = 0;
@@ -336,72 +274,152 @@ webix.ready(function(){
       index = vjsonBling.findIndex(x => x.cliente == JsonOriginal[i].cliente);
      // alert(index);
 
-      var vValorNota = parseFloat(JsonOriginal[i].valorNota)
+      var vValor = parseFloat(JsonOriginal[i].valor)
       
               if (index == -1) {
                         
                 vjsonBling.push({ "cliente": JsonOriginal[i].cliente,     //n achou criar um registro no vJsonBlig
-                                  "valorNota": vValorNota});
+                                  "valor": vValor});
 
               
               } else {
                 
-                vjsonBling[index].valorNota += vValorNota; //
+                vjsonBling[index].valor += vValor; //
 
               }
      };
-
+ 
      
      //alert("RESULTADO= "+JSON.stringify(vjsonBling, null, 4));
-     $$("wGraficoBling2").clearAll();
-     $$("wGraficoBling2").parse(vjsonBling);
+     $$("wGrafico").clearAll();
+     $$("wGrafico").parse(vjsonBling);
 
+     $$("wGrid").parse(vJsonGrid);  //tabela
+       
+      
 
-  var vJsonGrid = 
+//************************************************************ */
+  var vJsonGrid2 = 
       [
           {
               "numeroNFSe":202200000000005,
-              "cliente":"DREBES & CIA LTDA",
-              "cnpj": 96662168000131,
+              "loja":"A",
+              "cliente": "Lucas",
               "dataEmissao": "2022-01-03",
-              "valorNota": 10332.00
+              "valor": 1030
           },
           {
             "numeroNFSe":202200000000005,
-            "cliente":"DREBES & CIA LTDA",
-            "cnpj": 96662168000131,
+            "loja":"A",
+            "cliente": "Marcelo",
             "dataEmissao": "2022-01-03",
-            "valorNota": 12000.00
+            "valor": 1205
          },
          {
             "numeroNFSe": 202200000000005,
-            "cliente":"DREBES & CIA LTDA",
-            "cnpj": 96662168000131,
+            "loja":"B",
+            "cliente": "Marcelo",
             "dataEmissao": "2022-01-03",
-            "valorNota": 1400.00
+            "valor": 4000
           },
           {
             "numeroNFSe":202200000000005,
-            "cliente":"DREBES & CIA LTDA",
-            "cnpj": 96662168000131,
+            "loja":"B",
+            "cliente": "Paulo",
             "dataEmissao": "2022-01-03",
-            "valorNota": 2100.00
+            "valor": 1520
           },
           {
             "numeroNFSe":202200000000005,
-            "cliente":"DREBES & CIA LTDA",
-            "cnpj": 96662168000131,
+            "loja":"C",
+            "cliente": "Paulo",
             "dataEmissao": "2022-01-03",
-            "valorNota": 2620.80
+            "valor": 6636
+        },
+        {
+          "numeroNFSe":202200000000005,
+          "loja":"E",
+          "cliente": "João",
+          "dataEmissao": "2022-01-03",
+          "valor": 2004
+        },
+        {
+          "numeroNFSe":202200000000005,
+          "loja":"F",
+          "cliente": "João",
+          "dataEmissao": "2022-01-03",
+          "valor": 684
+        },
+        {
+          "numeroNFSe":202200000000005,
+          "loja":"F",
+          "cliente": "João",
+          "dataEmissao": "2022-01-03",
+          "valor": 684
+        },
+        {
+          "numeroNFSe":202200000000005,
+          "loja":"F",
+          "cliente": "Carlos",
+          "dataEmissao": "2022-01-03",
+          "valor": 2664
+        },
+        {
+          "numeroNFSe":202200000000005,
+          "loja":"F",
+          "cliente": "José",
+          "dataEmissao": "2022-01-03",
+          "valor": 541
+        },
+        {
+          "numeroNFSe":202200000000005,
+          "loja":"F",
+          "cliente": "José",
+          "dataEmissao": "2022-01-03",
+          "valor": 6541
+        },
+        {
+          "numeroNFSe":202200000000005,
+          "loja":"G",
+          "cliente": "Paula",
+          "dataEmissao": "2022-01-03",
+          "valor": 5136
         }
 
-      ];
-      $$("wGridLocal").clearAll();
-      $$("wGridLocal").parse(vJsonGrid);  //tabela
 
-      $$("wGraficoLocal").clearAll();
-      $$("wGraficoLocal").parse(vJsonGrid); 
+      ];
+
+      var JsonOriginal = vJsonGrid2;
+     vjsonBling = [];
+     var index = 0;
+     var i = 0;
+     for(i in JsonOriginal) {
+      //alert("CAMPO= "+JSON.stringify(JsonOriginal[i], null, 4));
+      index = vjsonBling.findIndex(x => x.loja == JsonOriginal[i].loja);
+     // alert(index);
+
+      var vValor = parseFloat(JsonOriginal[i].valor)
+      
+              if (index == -1) {
+                        
+                vjsonBling.push({ "loja": JsonOriginal[i].loja,     //n achou criar um registro no vJsonBlig
+                                  "valor": vValor});
+
+              
+              } else {
+                
+                vjsonBling[index].valor += vValor; //
+
+              }
+     };
+ 
+     
+     //alert("RESULTADO= "+JSON.stringify(vjsonBling, null, 4));
+     $$("wGrafico2").clearAll();
+     $$("wGrafico2").parse(vjsonBling);
+
+     $$("wGrid2").parse(vJsonGrid2);  //tabela
+      
       
   
 });
-  }

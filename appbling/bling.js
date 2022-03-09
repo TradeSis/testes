@@ -81,16 +81,6 @@ var form = {
   }
 };
 
-
-
- 
-
- 
-
-   
-    
-
-
 // #B3 - TELA PRINCIPAL - GRID
 var wGrid = {
       "view": "datatable",
@@ -243,11 +233,6 @@ var ui = {
     };
 
    
-    
-      
-      
-
-    
 
     // CHAMA WEBIX
     webix.ready(function(){

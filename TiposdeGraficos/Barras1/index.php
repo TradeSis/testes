@@ -154,7 +154,6 @@ var windices = {
 								{ "label": "Realizado", "view": "label" },
 								{
 									"label": "R$ 999.999.99,99",
-                  id:"vlrRealizado",
 									"view": "label",
 								
 									"align": "right"
@@ -193,7 +192,7 @@ var wgrafico1 = ({
           radius:2,
           gradient:"rising",
           xAxis:{
-            template:"#messigla#"
+            template:"'#mes#"
           },
           yAxis:{
             start:0,
@@ -297,7 +296,7 @@ const table_tarefas = {                 //# 2- Modificação!
     select:true,
    // url:"data/data.js",
     hover:"myhover",
-    save: "/ts/erp/testes/testesLucas/TiposdeGraficos/Barras1/save.php", /* PHP SAVE IN MYSQL */                    //****************##########1 */
+    save: "/ts/testes/TiposdeGraficos/Barras1/save.php", /* PHP SAVE IN MYSQL */                    //****************##########1 */
 
     columns:                           //# 1- Modificação!
         [
@@ -563,7 +562,7 @@ $$(winId).getBody().focus();
 function executa(wvar){
 
 // alert ("periodo selecionado: " + wvar);
-  wJson = chamaAJAX("/ts/erp/testes/testesLucas/TiposdeGraficos/Barras1/leitura.php");                         //# 9- Modificação! NOVA****
+  wJson = chamaAJAX("/ts/testes/TiposdeGraficos/Barras1/leitura.php");                         //# 9- Modificação! NOVA****
   
   //alert(JSON.stringify(wJson, null, 4));
 
@@ -590,7 +589,6 @@ function executa(wvar){
       var vvlrano2019 = 0;
       var vvlrano2020 = 0;
       var vvlrano2021 = 0;
-      var wmessigla = "";
 
      //  alert("Mes="+JsonOriginal[i].mes+" Ano="+JsonOriginal[i].ano+" Valor="+vValor);
        if (JsonOriginal[i].ano=="2019") {
@@ -605,26 +603,11 @@ function executa(wvar){
               wTotal += vValor;
 
        }
-   
-       if (JsonOriginal[i].mes==1) {wmessigla = "JAN"};
-       if (JsonOriginal[i].mes==2) {wmessigla = "FEV"};
-       if (JsonOriginal[i].mes==3) {wmessigla = "MAR"};
-       if (JsonOriginal[i].mes==4) {wmessigla = "ABR"};
-       if (JsonOriginal[i].mes==5) {wmessigla = "MAI"};
-       if (JsonOriginal[i].mes==6) {wmessigla = "JUN"};
-       if (JsonOriginal[i].mes==7) {wmessigla = "JUL"};
-       if (JsonOriginal[i].mes==8) {wmessigla = "AGO"};
-       if (JsonOriginal[i].mes==9) {wmessigla = "SET"};
-       if (JsonOriginal[i].mes==10) {wmessigla = "OUT"};
-       if (JsonOriginal[i].mes==11) {wmessigla = "NOV"};
-       if (JsonOriginal[i].mes==12) {wmessigla = "DEZ"};
-
 
               if (index == -1 ) {
                 
 
                     vjsonBling.push({ "mes": JsonOriginal[i].mes,     //n achou, criar um registro novo vJsonBlig
-                                      "messigla": wmessigla,
                                       "vlrano1": vvlrano2019,
                                       "vlrano2": vvlrano2020,
                                       "vlrano3": vvlrano2021});
@@ -657,7 +640,7 @@ function executa(wvar){
 
  //   alert("dataset JSON= "+JSON.stringify(dataset, null, 4));
 */
-        //  alert(wTotal);
+          alert(wTotal);
 
 
 console.log("NOVO JSON= "+JSON.stringify(vjsonBling, null, 4));
@@ -667,8 +650,6 @@ console.log("NOVO JSON= "+JSON.stringify(vjsonBling, null, 4));
      $$("wgrafico1").clearAll();                                      // ULTIMA PARADA!!
      $$("wgrafico1").parse(vjsonBling) ;
 
-     $$("vlrRealizado").define("label",wTotal);
-     $$("vlrRealizado").refresh();
 
 
 }

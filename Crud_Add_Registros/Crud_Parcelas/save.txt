@@ -1,0 +1,12 @@
+conectando mysql=u384787522_tswebdev
+ESTOU AQUI
+codigoCliente = 444444
+numContrato = 444444444
+numParcela = 4444444
+dtemi = 0000-00-00
+dtven = 0000-00-00
+valor = 99999999.99
+dtpag = 
+id = 1646678634780
+webix_operation = delete
+delete

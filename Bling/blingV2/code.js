@@ -1,6 +1,6 @@
 var wTitulo = {
   "view": "label",
-  "label": "Bling com Tabelas V2.",
+  "label": "Tabela com acumulado de dados no Grafico.",
   "id": "wTitulo",
   "height": 0
 };
@@ -21,7 +21,64 @@ var wToolbar = {
 
 };
 
-var wGrid = {
+// #B2 - TELA PRINCIPAL - PESQUISAS
+var wPesquisa = {
+  "id": "wPesquisa",
+  "height": 100,
+  "view": "form",
+  "minHeight": 380,
+  "autoheight": false,
+  "elements": [
+    {
+      "rows": [
+        {
+          "label": "Parametros",
+          "view": "button",
+          "height": 0,
+          click:function(){ showForm("win1", this.$view) }
+        }
+      ]
+    }
+  ]
+};
+
+var wDtinicial = { id:"dtinicial","view": "datepicker", "height": 0 ,
+        
+         stringResult:true, 	icons: true};
+var wDtfinal   = { id:"dtfinal","view": "datepicker", "height": 0 ,	
+         
+        stringResult:true, icons: true};
+
+var form = {
+id:"formulario",
+view:"form",
+autowidth:true,
+borderless:true,
+"rows": [
+{
+"height": 58,
+"cols": [ wDtinicial, wDtfinal
+]
+},
+{ view:"button", value: "Pesquisa", click:function(){
+  
+         
+           
+             conteudo = $$("dtinicial").getText() + " TO " + $$("dtfinal").getText();
+             alert(conteudo);
+             
+             //01/11/2021 TO 30/11/2021
+            executa(conteudo);
+            $$("win1").hide();
+          }
+}
+],
+elementsConfig:{
+labelPosition:"top",
+}
+};
+
+var wGridBling = {
   "view": "datatable",
   autoConfig:true,
   "columns": [
@@ -48,23 +105,17 @@ var wGrid = {
     {
       "id": "valorNota",
       "header": "valorNota",
-      "sort": "string", adjust: true, footer:{ content:"summColumn" }
+      "sort": "string", adjust: true, footer:{ content:"summColumn" }              //Soma dos valores da tabela
     }
   ],
   "select": true,
   "scrollX": false,
-  
-  //"url": "http://localhost/tsweb/php/buscaparcelas.php",
-  //"url": "http://localhost/tsweb/api/dbmy/consultaParcelas",
-  "id": "wGrid",
+  "id": "wGridBling",
   "height": 0,
-  //autoheight:true,
-  //autowidth:true,
-  
   footer:true
 };
 
-var wGrid2 = {
+var wGridLocal = {
   "view": "datatable",
   "columns": [
     {
@@ -98,27 +149,13 @@ var wGrid2 = {
   "scrollX": false,
   
   
-  "id": "wGrid2",
+  "id": "wGridLocal",
   "height": 0,
  
 };
 
-var wGrafico2 = {
-  "id": "wGrafico2",
-  "type": "bar",
-  "value": "#valorNota#",         
-  "label": "#valorNota#",
-  "view": "chart",
-
-  yAxis:{},
-  xAxis:{
-    lines:true,
-    title:"numeroNFSe",
-    template:"#cliente#"                       
-  }
-};
-var wGrafico = {
-  "id": "wGrafico",
+var wGraficoBling = {
+  "id": "wGraficoBling",
   "type": "bar",
   "value": "#valorNota#",         
   "label": "#valorNota#",
@@ -132,23 +169,54 @@ var wGrafico = {
   }
 };
 
+var wGraficoBling2 = {
+  "id": "wGraficoBling2",
+  "type": "bar",
+  "value": "#valorNota#",         
+  "label": "#valorNota#",
+  "view": "chart",
+
+  yAxis:{},
+  xAxis:{
+    lines:true,
+    title:"Cliente",
+    template:"#cliente#"                       
+  }
+};
+
+var wGraficoLocal = {
+  "id": "wGraficoLocal",
+  "type": "pie3D",
+  "value": "#valorNota#",         
+  "label": "#valorNota#",
+  "view": "chart",
+
+  yAxis:{},
+  xAxis:{
+    lines:true,
+    title:"numeroNFSe",
+    template:"#cliente#"                       
+  }
+};
+
+
 var wexport =
 ({
    margin:5,
    rows:[
      {
        cols: [
-         { view:"button", width: 280, value:"Exportar para Excel", click:function(){
+         { view:"button", width: 200, value:"Exportar para Excel", click:function(){
            webix.toExcel(
-              [$$("wGrid2"), $$("wGrafico"), $$("wGrafico2")],
+              [$$("wGridBling"),$$("wGridLocal"), $$("wGraficoBling"), $$("wGraficoLocal")],
               { filename: "My data" }
           );
 
          }},
-         { view:"button", width: 280, value:"Exportar para PDF", click:function(){
+         { view:"button", width: 200, value:"Exportar para PDF", click:function(){
           // var sel = $$("vJsonGrid").getSelectedId(true);// array of selected records
  
-           webix.toPDF([$$("wGrid2"), $$("wGrafico"), $$("wGrafico2")], {
+           webix.toPDF([$$("wGridBling"),$$("wGridLocal"), $$("wGraficoBling"), $$("wGraficoLocal")], {
               filename: "datatable"
           });
            
@@ -160,19 +228,12 @@ var wexport =
  }); 
        
 
-
-
-
-
-
-
-
   var wLinha =
  { "id": "wLinha",
    "rows": [
               
              {cols: 
-               [wGrid, wGrafico]
+               [wGridBling, wGraficoBling, wGraficoBling2]
               },           
    ]
 
@@ -183,7 +244,7 @@ var wexport =
    "rows": [
               
              {cols: 
-               [wGrid2, wGrafico2]
+               [wGridLocal, wGraficoLocal]
               },           
    ]
 
@@ -193,6 +254,7 @@ var wexport =
 var ui = {
   rows:[  
       wToolbar,
+      wPesquisa,
         wexport,
          wLinha,
          wLinha2
@@ -212,15 +274,87 @@ webix.ready(function(){
   webix.i18n.setLocale("pt-BR");
   // ATIVA UI
 
+
+  webix.ui({
+    view:"popup",
+    id:"win1",
+    width:500,
+    head:false,
+    body:webix.copy(form)
+  });
+  
   webix.ui(ui);
     
-  webix.ajax("http://localhost/tsweb/api/tsbling/buscaServicos?filters=dataEmissao[20/12/2021 TO 20/12/2021]; situacao[2]", function(text,data){
+
+     /* Inicializa form */
+     var dtini = new Date();
+     var dd = '01';
+     var mm = String(dtini.getMonth() + 1).padStart(2, '0'); //January is 0!
+     var yyyy = dtini.getFullYear();
+    // alert(yyyy+' '+mm+' '+dd);
+     $$("dtinicial").setValue(new Date(yyyy,mm - 1,dd));
+     var periodo = dd + '/' + mm + '/' + yyyy;
+     var hoje = new Date();
+     var dd = String(hoje.getDate()).padStart(2, '0');
+     var mm = String(hoje.getMonth() + 1).padStart(2, '0'); //January is 0!
+     var yyyy = hoje.getFullYear();
+     $$("dtfinal").setValue(new Date(yyyy,mm - 1,dd));
+     periodo += ' TO ' + dd + '/' + mm + '/' + yyyy;
+     
+
+     executa(periodo);
+    
+
+     
+  });
+
+  function showForm(winId, node){
+    $$(winId).getBody().clear();
+    $$(winId).show(node);
+    $$(winId).getBody().focus();
+  }
+
+  function executa(wvar){
+  webix.ajax("/ts/api/tsbling/buscaServicos?filters=dataEmissao["+wvar+"]; situacao[2]", function(text,data){
     //text = data.parcelas;
     var wJson = data.json();
   //  alert(wJson);
-     $$("wGrid").parse(wJson.notasServico[0]);
-     $$("wGrafico").parse(wJson.notasServico[0]);
- });
+     $$("wGridBling").clearAll();
+     $$("wGridBling").parse(wJson.notasServico[0]);
+     
+     $$("wGraficoBling").clearAll();
+     $$("wGraficoBling").parse(wJson.notasServico[0]);
+
+
+     //***************** */
+     var JsonOriginal = wJson.notasServico[0];
+     vjsonBling = [];
+     var index = 0;
+     var i = 0;
+     for(i in JsonOriginal) {
+      //alert("CAMPO= "+JSON.stringify(JsonOriginal[i], null, 4));
+      index = vjsonBling.findIndex(x => x.cliente == JsonOriginal[i].cliente);
+     // alert(index);
+
+      var vValorNota = parseFloat(JsonOriginal[i].valorNota)
+      
+              if (index == -1) {
+                        
+                vjsonBling.push({ "cliente": JsonOriginal[i].cliente,     //n achou criar um registro no vJsonBlig
+                                  "valorNota": vValorNota});
+
+              
+              } else {
+                
+                vjsonBling[index].valorNota += vValorNota; //
+
+              }
+     };
+
+     
+     //alert("RESULTADO= "+JSON.stringify(vjsonBling, null, 4));
+     $$("wGraficoBling2").clearAll();
+     $$("wGraficoBling2").parse(vjsonBling);
 
 
   var vJsonGrid = 
@@ -262,8 +396,12 @@ webix.ready(function(){
         }
 
       ];
-      $$("wGrid2").parse(vJsonGrid);  //tabela
-      $$("wGrafico2").parse(vJsonGrid); 
+      $$("wGridLocal").clearAll();
+      $$("wGridLocal").parse(vJsonGrid);  //tabela
+
+      $$("wGraficoLocal").clearAll();
+      $$("wGraficoLocal").parse(vJsonGrid); 
       
   
 });
+  }

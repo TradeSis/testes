@@ -11,7 +11,7 @@
   
   $dbmy=mysqli_connect($hostname,$username, $password,$dbname);
 
-  $fp = fopen('D:Programas\XAMPP\htdocs\ts\erp\testes\testesLucas\CRUD_V4\save.txt', 'w'); //********** */      //# 1- Modificação!
+  $fp = fopen('D:Programas\XAMPP\htdocs\ts\testes\testesLucas\Linha\save.txt', 'w'); //********** */      //# 1- Modificação!
 
   fwrite($fp, "conectando mysql=".$dbname."\n");
 

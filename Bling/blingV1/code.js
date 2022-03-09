@@ -1,6 +1,6 @@
 var wTitulo = {
   "view": "label",
-  "label": "Bling com Tabelas V1.",
+  "label": "1° tabela com dados vindos do ajax, 2° tabela normal.",
   "id": "wTitulo",
   "height": 0
 };
@@ -22,6 +22,49 @@ var wToolbar = {
 };
 
 var wGrid = {
+  "view": "datatable",
+  autoConfig:true,
+  "columns": [
+    {
+      "id": "numeroNFSe",
+      "header": "numeroNFSe",
+      "sort": "string", adjust: true
+    },
+    {
+      "id": "cliente",
+      "header": "cliente",
+      "sort": "string", adjust: true
+    },
+    {
+      "id": "clienteCNPJ",
+      "header": "clienteCNPJ",
+      "sort": "string", adjust: true
+    },
+    {
+      "id": "dataEmissao",
+      "header": "Dt Emissão",
+      "sort": "string", adjust: true
+    },
+    {
+      "id": "valorNota",
+      "header": "valorNota",
+      "sort": "string", adjust: true, footer:{ content:"summColumn" }
+    }
+  ],
+  "select": true,
+  "scrollX": false,
+  
+  //"url": "http://localhost/tsweb/php/buscaparcelas.php",
+  //"url": "http://localhost/tsweb/api/dbmy/consultaParcelas",
+  "id": "wGrid",
+  "height": 0,
+  //autoheight:true,
+  //autowidth:true,
+  
+  footer:true
+};
+
+var wGrid2 = {
   "view": "datatable",
   "columns": [
     {
@@ -55,11 +98,25 @@ var wGrid = {
   "scrollX": false,
   
   
-  "id": "wGrid",
+  "id": "wGrid2",
   "height": 0,
  
 };
 
+var wGrafico2 = {
+  "id": "wGrafico2",
+  "type": "bar",
+  "value": "#valorNota#",         
+  "label": "#valorNota#",
+  "view": "chart",
+
+  yAxis:{},
+  xAxis:{
+    lines:true,
+    title:"numeroNFSe",
+    template:"#cliente#"                       
+  }
+};
 var wGrafico = {
   "id": "wGrafico",
   "type": "bar",
@@ -74,35 +131,6 @@ var wGrafico = {
     template:"#cliente#"                       
   }
 };
-var wGrafico2 = {
-  "id": "wGrafico2",
-  "type": "bar",
-  "value": "#valorNota#",         
-  "label": "#valorNota#",
-  "view": "chart",
-
-  yAxis:{},
-  xAxis:{
-    lines:true,
-    title:"Faturamento",
-    template:"#cliente#"                       
-  }
-};
-
-/* var wGrafico2 = {
-  "id": "wGrafico2",
-  "type": "bar",
-  "value": "#numeroNFSe#",         
-  "label": "#numeroNFSe#",
-  "view": "chart",
-
-  yAxis:{},
-  xAxis:{
-    lines:true,
-    title:"numeroNFSe",
-    template:"#cnpj#"                       
-  }
-}; */
 
 var wexport =
 ({
@@ -112,7 +140,7 @@ var wexport =
        cols: [
          { view:"button", width: 280, value:"Exportar para Excel", click:function(){
            webix.toExcel(
-              [$$("wGrid"), $$("wGrafico"), $$("wGrafico2")],
+              [$$("wGrid2"), $$("wGrafico"), $$("wGrafico2")],
               { filename: "My data" }
           );
 
@@ -120,7 +148,7 @@ var wexport =
          { view:"button", width: 280, value:"Exportar para PDF", click:function(){
           // var sel = $$("vJsonGrid").getSelectedId(true);// array of selected records
  
-           webix.toPDF([$$("wGrid"), $$("wGrafico"), $$("wGrafico2")], {
+           webix.toPDF([$$("wGrid2"), $$("wGrafico"), $$("wGrafico2")], {
               filename: "datatable"
           });
            
@@ -155,7 +183,7 @@ var wexport =
    "rows": [
               
              {cols: 
-               [wGrafico2]
+               [wGrid2, wGrafico2]
               },           
    ]
 
@@ -183,7 +211,16 @@ webix.ready(function(){
   // SETA WEBIX PARA BR
   webix.i18n.setLocale("pt-BR");
   // ATIVA UI
+
   webix.ui(ui);
+    
+  webix.ajax("http://localhost/tsweb/api/tsbling/buscaServicos?filters=dataEmissao[20/12/2021 TO 20/12/2021]; situacao[2]", function(text,data){
+    //text = data.parcelas;
+    var wJson = data.json();
+  //  alert(wJson);
+     $$("wGrid").parse(wJson.notasServico[0]);
+     $$("wGrafico").parse(wJson.notasServico[0]);
+ });
 
 
   var vJsonGrid = 
@@ -225,8 +262,8 @@ webix.ready(function(){
         }
 
       ];
-      $$("wGrid").parse(vJsonGrid);  //tabela
-      $$("wGrafico").parse(vJsonGrid); 
-      $$("wGrafico2").parse(vJsonGrid);
+      $$("wGrid2").parse(vJsonGrid);  //tabela
+      $$("wGrafico2").parse(vJsonGrid); 
+      
   
 });

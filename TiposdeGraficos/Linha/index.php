@@ -338,7 +338,7 @@ const table_tarefas = {                 //# 2- Modificação!
     select:true,
    // url:"data/data.js",
     hover:"myhover",
-    save: "/ts/erp/testes/testesLucas/Dashboard_Servicos/save.php", /* PHP SAVE IN MYSQL */                    //****************##########1 */
+    save: "/ts/testes/testesLucas/Linha/save.php", /* PHP SAVE IN MYSQL */                    //****************##########1 */
 
     columns:                           //# 1- Modificação!
         [
@@ -630,7 +630,7 @@ $$(winId).getBody().focus();
 function executa(wvar){
 
 // alert ("periodo selecionado: " + wvar);
-  wJson = chamaAJAX("/ts/erp/testes/testesLucas/Dashboard_Servicos/leitura.php");                         //# 9- Modificação! NOVA****
+  wJson = chamaAJAX("/ts/testes/testesLucas/Linha/leitura.php");                         //# 9- Modificação! NOVA****
   
   //alert(JSON.stringify(wJson, null, 4));
 

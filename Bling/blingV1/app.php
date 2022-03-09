@@ -9,8 +9,8 @@
 
 	<!-- Design -->
 
-	<script type="text/javascript"             src="/ts/erp/testes/testesLucas/Bling/blingV1/code.js"></script>
-	<link    rel="stylesheet" type="text/css" href="/ts/erp/testesLucas/Bling/blingV1/code.css">
+	<script type="text/javascript"             src="/ts/testes/Bling/blingV1/code.js"></script>
+	<link    rel="stylesheet" type="text/css" href="/ts/testes/Bling/blingV1/code.css">
 
 
 </head>

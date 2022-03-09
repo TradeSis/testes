@@ -9,8 +9,8 @@
 
 	<!-- Design -->
 
-	<script type="text/javascript"             src="/ts/erp/appbling/bling.js"></script>
-	<link    rel="stylesheet" type="text/css" href="/ts/erp/appling/bling.css">
+	<script type="text/javascript"             src="/ts/testes/appbling/bling.js"></script>
+	<link    rel="stylesheet" type="text/css" href="/ts/testes/appling/bling.css">
 
 
 </head>

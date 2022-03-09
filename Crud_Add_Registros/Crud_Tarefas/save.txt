@@ -1,0 +1,12 @@
+conectando mysql=u384787522_tswebdev
+ESTOU AQUI
+ID = 10
+titulo = novo test
+descricao = adasd
+dataPrevista = 
+horaPrevista = 
+tempoPrevisto = 
+Status = 
+webix_operation = insert
+insert
+ SQL INSERT INTO `tarefas` (`titulo`, `descricao`, `dataPrevista`, `horaPrevista`, `tempoPrevisto`, `Status`) VALUES ('novo test', 'adasd', '', '', '', '' )

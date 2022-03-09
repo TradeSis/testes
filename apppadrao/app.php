@@ -9,8 +9,8 @@
 
 	<!-- Design -->
 
-	<script type="text/javascript"             src="/ts/erp/apppadrao/app.js"></script>
-	<link    rel="stylesheet" type="text/css" href="/ts/erp/apppadrao/app.css">
+	<script type="text/javascript"             src="/ts/testes/apppadrao/app.js"></script>
+	<link    rel="stylesheet" type="text/css" href="/ts/testes/apppadrao/app.css">
 
 
 </head>

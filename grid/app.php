@@ -9,8 +9,8 @@
 
 	<!-- Design -->
 
-	<script type="text/javascript"             src="/ts/erp/testes/grid/app.js"></script>
-	<link    rel="stylesheet" type="text/css" href="/ts/erp/testes/grid/app.css">
+	<script type="text/javascript"             src="/ts/testes/grid/app.js"></script>
+	<link    rel="stylesheet" type="text/css" href="/ts/testes/grid/app.css">
 
 
 </head>
