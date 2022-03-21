@@ -12,22 +12,43 @@ var wMenuTestes = {
     }
   },
   "submenu": [
-    { id:"/ts/testes/ajax/", value: "Ajax"},
-    { id:"/ts/testes/Bling/", value: "Bling"},
-    { id:"/ts/testes/Crud_Add_Registros/", value: "Crud_Add_Registros"},
-    { id:"/ts/testes/CrudTabelas/", value: "CrudTabelas"},
-    { id:"/ts/testes/Dashboard/", value: "Dashboard"},
-    { id:"/ts/testes/Excel/", value: "Excel"},
-    { id:"/ts/testes/exemplos/", value: "exemplos"},
-    { id:"/ts/testes/form/", value: "form"},
-    { id:"/ts/testes/grid/", value: "grid"},
-    { id:"/ts/testes/helio/", value: "Hélio"},
-    { id:"/ts/testes/ModeloDataDinheiro/", value: "Data e Dinheiro"},
-    { id:"/ts/testes/protestos/", value: "protestos"},
-    { id:"/ts/testes/Tabela/", value: "Tabela"},
-    { id:"/ts/testes/testeAjax/", value: "testeAjax"},
-    { id:"/ts/testes/TiposdeGraficos/", value: "TiposdeGraficos"},
-    { id:"/ts/testes/webix/", value: "WEBIX"},
+    { id:"/ts/erp/applucas/menu.php", value: "App Lucas "},
+    { id:"/ts/erp/testes/ajax/testeajax.php", value: "Teste Ajax"},
+    { id:"/ts/erp/testes/grid/app.php", value: "Teste Grid"},
+    { id:"/ts/erp/testes/webix/13_form_modal.html", value: "Webix Modal"},
+    { id:"/ts/erp/testes/webix/13_form_popup.html", value: "Webix POPUP"},
+    { id:"/ts/erp/testes/testesLucas/excelLucas/excel.php", value: "Excel 00"},
+    { id:"/ts/erp/testes/testesLucas/tgrid/app.php", value: "Tgrid"},
+    { id:"/ts/erp/testes/testesLucas/tgrafico/app.php", value: "Tgrafico"},
+    { id:"/ts/erp/testes/testesLucas/testegraficos/app.php", value: "Teste Grafico"},
+    { id:"/ts/erp/testes/testesLucas/dashGrafico/app.php", value: "Teste Grafico 2"},
+    { id:"/ts/erp/testes/testesLucas/export/excel/app.php", value: "Export PDF"},
+    { id:"/ts/erp/testes/testesLucas/export/excelGrafico/app.php", value: "Export Grafico PDF"},
+    { id:"/ts/erp/testes/testesLucas/TabelaComDados/app.php", value: "Tabela formato dados"}
+    
+    
+  
+    
+  ]
+};
+
+var wMenuAntigos = {
+  "value": "Antigos",
+  "id" : "wmAntigos",
+
+  labelAlign:"right",
+  config:{
+    on: {
+      onItemClick:function(id){
+        $$("menuIframe").define("src", id);
+      }
+    }
+  },
+  "submenu": [
+    { id:"/ts/erp/antigos/credito/filacredito.html",value:"Fila Credito" },
+    { id:"/ts/erp/etiqueta/index.html",value:"Etiquetas Moda" },
+    { id:"/ts/erp/antigos/aduana/vendas/dia.html", value: "App Aduana"},
+    { id:"http://tradesis.com.br/", value: "TradeSis"}
   ]
 };
 
@@ -46,15 +67,16 @@ var wMenuApps = {
   },
   "submenu": [
     { id:"/ts/erp/apppadrao/app.php", value: "App Padrão v1"},
-    { id:"/ts/erp/appbling/bling.php", value: "App BLING v1"}
+    { id:"/ts/erp/appbling/bling.php", value: "App BLING v1"},
+    { id:"/ts/erp/testes/testesLucas/CRUD/index.php", value: "CRUD v1."}
     
     
   ]
 };
 
-var wMenuDash = {
-  "value": "DashBoards",
-  "id" : "wmdash",
+var wMenuEx = {
+  "value": "Exemplos",
+  "id" : "wmex",
 
   labelAlign:"right",
   config:{
@@ -65,17 +87,18 @@ var wMenuDash = {
     }
   },
   "submenu": [
-    { id:"/ts/testes/Dashboard/Dashboard_Servicos/index.php", value: "DashServiços"},
-    { id:"/ts/testes/Dashboard/Dashboardcom3Graficos/index.php", value: "Dashboard 3 Graficos"},
-    { id:"/ts/testes/Dashboard/dashGrafico/app.php", value: "DashGrafico"},
-    { id:"/ts/testes/Dashboard/GraficoSelecaoAno/index.php", value: "G.Seleção Ano"},
-    { id:"/ts/testes/Dashboard/testegraficos/app.php", value: "TesteGraficos"},
-    { id:"/ts/testes/Dashboard/NotaVenda/index.php", value: "NotaVenda"}
+    { id:"/ts/erp/exemplos/webix-crud/", value: "Ex CRUD webix"},
+    { id:"/ts/erp/exemplos/testedash1/", value: "Teste DashBoard"},
+    { id:"/ts/erp/testes/testesLucas/TabelaComDados/app.php", value: "Tabela Dados v1."},
+    { id:"/ts/erp/testes/testesLucas/Dashboard_Servicos/index.php", value: "Dashboard Serviços"}
+
+    
+    
   ]
 };
-var wMenuTabelas = {
-  "value": "Tabelas",
-  "id" : "wtabelas",
+var wMenuBling = {
+  "value": "Bling",
+  "id" : "wbling",
 
   labelAlign:"right",
   config:{
@@ -86,13 +109,10 @@ var wMenuTabelas = {
     }
   },
   "submenu": [
-    { id:"/ts/testes/CrudTabelas/Empresa_index.php", value: "Empresa"},
-    { id:"/ts/testes/CrudTabelas/Aplicacao_index.php", value: "Aplicação"},
-    { id:"/ts/testes/CrudTabelas/AplicacaoEmpresa_index.php", value: "A. Empresa"},
-    { id:"/ts/testes/CrudTabelas/Usuario_index.php", value: "Usuários"},
-    { id:"/ts/testes/CrudTabelas/Cliente_index.php", value: "Clientes"},
-    { id:"/ts/testes/CrudTabelas/StatusSer_index.php", value: "Status Serviço"},
-    { id:"/ts/testes/CrudTabelas/Servicos_index.php", value: "Serviços"}
+    { id:"/ts/erp/testes/testesLucas/Bling/blingV1/app.php", value: "Bling V1"},
+    { id:"/ts/erp/testes/testesLucas/Bling/blingV2/app.php", value: "Bling V2"}, 
+    { id:"/ts/erp/testes/testesLucas/Bling/blingV22/app.php", value: "Bling V2.2"},
+    { id:"/ts/erp/testes/testesLucas/Bling/blingV3/app.php", value: "Bling V3"}
   ]
 };
 
@@ -110,10 +130,15 @@ var wMenuCrud = {
   },
   "submenu": [
     { id:"/ts/erp/exemplos/webix-crud/", value: "Ex CRUD webix"},
+    //{ id:"/ts/erp/exemplos/testedash1/", value: "Teste DashBoard"},
     { id:"/ts/erp/testes/testesLucas/CRUD_V1/index.php", value: "CRUD V1"},
     { id:"/ts/erp/testes/testesLucas/CRUD_V2/index.php", value: "CRUD V2"},
     { id:"/ts/erp/testes/testesLucas/CRUD_V3/index.php", value: "CRUD V3"},
     { id:"/ts/erp/testes/testesLucas/CRUD_V4/index.php", value: "CRUD V4"}
+
+
+    //{ id:"/ts/erp/testes/testesLucas/Dashboard_Servicos/index.php", value: "Dashboard Serviços"}
+
   ]
 };
 
@@ -126,10 +151,10 @@ var wMenu = {
     wMenuTestes,
     
     
-    wMenuDash,
-    
+    wMenuEx,
+    wMenuAntigos,
 
-     wMenuTabelas,
+     wMenuBling,
     wMenuCrud 
          ],
 

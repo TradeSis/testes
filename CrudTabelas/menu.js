@@ -1,81 +1,7 @@
 
-var wMenuTestes = {
-  "value": "Testes",
-  "id" : "wmTestes",
-
-  labelAlign:"right",
-  config:{
-    on: {
-      onItemClick:function(id){
-        $$("menuIframe").define("src", id);
-      }
-    }
-  },
-  "submenu": [
-    { id:"/ts/testes/ajax/", value: "Ajax"},
-    { id:"/ts/testes/Bling/", value: "Bling"},
-    { id:"/ts/testes/Crud_Add_Registros/", value: "Crud_Add_Registros"},
-    { id:"/ts/testes/CrudTabelas/", value: "CrudTabelas"},
-    { id:"/ts/testes/Dashboard/", value: "Dashboard"},
-    { id:"/ts/testes/Excel/", value: "Excel"},
-    { id:"/ts/testes/exemplos/", value: "exemplos"},
-    { id:"/ts/testes/form/", value: "form"},
-    { id:"/ts/testes/grid/", value: "grid"},
-    { id:"/ts/testes/helio/", value: "Hélio"},
-    { id:"/ts/testes/ModeloDataDinheiro/", value: "Data e Dinheiro"},
-    { id:"/ts/testes/protestos/", value: "protestos"},
-    { id:"/ts/testes/Tabela/", value: "Tabela"},
-    { id:"/ts/testes/testeAjax/", value: "testeAjax"},
-    { id:"/ts/testes/TiposdeGraficos/", value: "TiposdeGraficos"},
-    { id:"/ts/testes/webix/", value: "WEBIX"},
-  ]
-};
-
-
 var wMenuApps = {
   "value": "Apps",
   "id" : "wmApps",
-
-  labelAlign:"right",
-  config:{
-    on: {
-      onItemClick:function(id){
-        $$("menuIframe").define("src", id);
-      }
-    }
-  },
-  "submenu": [
-    { id:"/ts/erp/apppadrao/app.php", value: "App Padrão v1"},
-    { id:"/ts/erp/appbling/bling.php", value: "App BLING v1"}
-    
-    
-  ]
-};
-
-var wMenuDash = {
-  "value": "DashBoards",
-  "id" : "wmdash",
-
-  labelAlign:"right",
-  config:{
-    on: {
-      onItemClick:function(id){
-        $$("menuIframe").define("src", id);
-      }
-    }
-  },
-  "submenu": [
-    { id:"/ts/testes/Dashboard/Dashboard_Servicos/index.php", value: "DashServiços"},
-    { id:"/ts/testes/Dashboard/Dashboardcom3Graficos/index.php", value: "Dashboard 3 Graficos"},
-    { id:"/ts/testes/Dashboard/dashGrafico/app.php", value: "DashGrafico"},
-    { id:"/ts/testes/Dashboard/GraficoSelecaoAno/index.php", value: "G.Seleção Ano"},
-    { id:"/ts/testes/Dashboard/testegraficos/app.php", value: "TesteGraficos"},
-    { id:"/ts/testes/Dashboard/NotaVenda/index.php", value: "NotaVenda"}
-  ]
-};
-var wMenuTabelas = {
-  "value": "Tabelas",
-  "id" : "wtabelas",
 
   labelAlign:"right",
   config:{
@@ -92,28 +18,7 @@ var wMenuTabelas = {
     { id:"/ts/testes/CrudTabelas/Usuario_index.php", value: "Usuários"},
     { id:"/ts/testes/CrudTabelas/Cliente_index.php", value: "Clientes"},
     { id:"/ts/testes/CrudTabelas/StatusSer_index.php", value: "Status Serviço"},
-    { id:"/ts/testes/CrudTabelas/Servicos_index.php", value: "Serviços"}
-  ]
-};
-
-var wMenuCrud = {
-  "value": "Crud",
-  "id" : "wcrud",
-
-  labelAlign:"right",
-  config:{
-    on: {
-      onItemClick:function(id){
-        $$("menuIframe").define("src", id);
-      }
-    }
-  },
-  "submenu": [
-    { id:"/ts/erp/exemplos/webix-crud/", value: "Ex CRUD webix"},
-    { id:"/ts/erp/testes/testesLucas/CRUD_V1/index.php", value: "CRUD V1"},
-    { id:"/ts/erp/testes/testesLucas/CRUD_V2/index.php", value: "CRUD V2"},
-    { id:"/ts/erp/testes/testesLucas/CRUD_V3/index.php", value: "CRUD V3"},
-    { id:"/ts/erp/testes/testesLucas/CRUD_V4/index.php", value: "CRUD V4"}
+    { id:"/ts/testes/CrudTabelas/Servicos_index.php", value: "Serviços"},
   ]
 };
 
@@ -122,18 +27,9 @@ var wMenu = {
   "id": "wMenu",
   "data":[  
             
-    wMenuApps,
-    wMenuTestes,
-    
-    
-    wMenuDash,
-    
-
-     wMenuTabelas,
-    wMenuCrud 
+    wMenuApps
          ],
 
- // "layout": "x",
   "type": {
     "subsign": true
     ,

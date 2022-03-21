@@ -1,0 +1,10 @@
+conectando mysql=u384787522_tswebdev
+ESTOU AQUI
+email = nova@tradesis.com.br
+empresa = TRADESIS
+nome = Outro
+senha = 8456
+id = 1647376089190
+webix_operation = update
+update
+ SQL UPDATE usuario SET nome='Outro', senha='8456' WHERE email='nova@tradesis.com.br'

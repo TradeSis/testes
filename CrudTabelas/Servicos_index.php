@@ -1,4 +1,4 @@
-<!--#1 - Chamada html, direcionando para webix, css e jquery-->
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,13 +8,12 @@
 	<script type="text/javascript"          src="/ts/js/webix/codebase/webix.min.js"></script>
 
 	<link rel="stylesheet" type="text/css" href="/ts/js/webix/codebase/skins/flat.min.css">
-
+  <link rel="stylesheet" type="text/css" href="/ts/testes/CrudTabelas/menu.css">
 
 	<style>
 		</style>
 
 	<script>
-//#2 - Chamada do ajax!
 var wURL = '';
 
 function chamaAJAX(wURL,wType="get",wdataType="json") {
@@ -29,17 +28,6 @@ function chamaAJAX(wURL,wType="get",wdataType="json") {
 		
 			success: function (json_get) {
 				res = json_get;
-				/*
-				obj = json_get;
-				for(var i in obj) {
-					//  alert(JSON.stringify(obj[i], null, 4));
-					//   alert(obj[i].numeroNFSe);
-					//	res.push(obj[i]);
-				}
-				*/
-			//  alert(JSON.stringify(res, null, 4));
-
-				
 			},
 			error: function (xhr, status, errorThrown) {
 
@@ -49,49 +37,40 @@ function chamaAJAX(wURL,wType="get",wdataType="json") {
 		return res;
 	}
 
-//#3 - FUNCAO clearParcelas 
-let clearTarefas = () => {                             //# 3- Modificação!
+let clearServicos = () => {                             
     webix.confirm({
         title:"All data will be lost!",
         text:"Are you sure?"
     }).then(
         () => {
             
-            $$("form_tarefas").clear();               //************************** */
-            $$("form_tarefas").clearValidation();     //************************** */
+            $$("form_servicos").clear();               
+            $$("form_servicos").clearValidation();     
         }
 )};
 
-//#4 - FUNCAO saveTarefas 
-let saveTarefas = () => {                                //# 4- Modificação!
-    let form = $$( "form_tarefas" );                      //************************** */
-    let list = $$( "table_tarefas" );                     //************************** */
-    let item_data = $$("form_tarefas").getValues();     //************************** */
-    
-   // alert(JSON.stringify(item_data, null, 4));
-   
-   
-
-    if( form.isDirty() /*&& form.validate()*/  ){
+let saveServicos = () => {                               
+    let form = $$( "form_servicos" );                      
+    let list = $$( "table_servicos" );                     
+    let item_data = $$("form_servicos").getValues();    
+ 
+    if( form.isDirty()){
       
         if( item_data.id ) 
             list.updateItem(item_data.id, item_data);
         else 
             list.add( item_data );
     }
-	$$("win_tarefas").hide();                             //************************** */
-   //alert("saveParcelas");
+	$$("win_servicos").hide();                             
 }
 
-// #A2 - TITULO
 var wTitulo = {
           "view": "label",
-          "label": "Registro Reunião.",
+          "label": "Serviços",
           "id": "wTitulo",
           "height": 0
         };
 
-// #A1 - BARRA DE TAREFAS SUPERIOR
 var wToolbar = {
           "id": "wToolbar",
           "height": 34,
@@ -102,13 +81,12 @@ var wToolbar = {
             "left": 20
           },
           "elements": [
-               wTitulo // #A2
+               wTitulo
 
           ]
 
         };
 
-// #B2 - TELA PRINCIPAL - PESQUISAS
 var wPesquisa = {
         "id": "wPesquisa",
         "height": 100,
@@ -129,7 +107,8 @@ var wPesquisa = {
                 "view": "button",
 				"width":120,
                 "height": 0,
-                click:function(){ showForm("win_tarefas") }                         //Funcionou!
+                click:function(){ showForm("win_servicos");
+                  $$("empresa").define("disabled", false); }                        
               }
             ]
           }
@@ -143,7 +122,6 @@ var wDtfinal   = { id:"dtfinal","view": "datepicker", "height": 0 ,
                
               stringResult:true, icons: true};
 
-/* FORMULARIO DE pesquisa */
 var form = {
   id:"formulario",
   view:"form",
@@ -156,13 +134,10 @@ var form = {
 			]
 		},
 		{ view:"button", value: "Pesquisa", click:function(){
-        
-               
-                 
+                
                    conteudo = $$("dtinicial").getText() + " TO " + $$("dtfinal").getText();
                    alert(conteudo);
                    
-                   //01/11/2021 TO 30/11/2021
                   executa(conteudo);
                   $$("win1").hide();
                 }
@@ -173,58 +148,98 @@ var form = {
   }
 };
 
-/* DATATABLE parcelas */
-const table_tarefas = {                 //# 2- Modificação!
+const table_servicos = {                 
     view:"datatable", 
-    id:"table_tarefas",
-    scroll:"y",
+    id:"table_servicos",
+    scroll:"xy",
     select:true,
-   // url:"data/data.js",
     hover:"myhover",
-    save:/* "/ts/erp/testes/crud/save.php" */  "/ts/testes/Crud_Add_Registros/Crud_Tarefas/save.php", /* PHP SAVE IN MYSQL */                    //****************##########1 */
+    save:"/ts/testes/CrudTabelas/Servicos_save.php",
 
-    columns:                           //# 1- Modificação!
+    columns:                           
         [
             {
               "id": "ID",                     
               "header": "ID",
-              "sort": "string"
+              "sort": "string",
+              "width":50,
+            },
+            {
+              "id": "empresa",
+              "header": "empresa",
+              "sort": "string",
+              "width":200,
+            },
+            {
+              "id": "clienteCodigo",
+              "header": "clienteCodigo",
+              "sort": "string",
+              "width":200,
             },
             {
               "id": "titulo",
               "header": "titulo",
-              "sort": "string"
+              "sort": "string",
+              "width":200,
             },
             {
               "id": "descricao",
               "header": "Descrição",
-              "sort": "string"
+              "sort": "string",
+              "width":250,
             },
             {
-              "id": "dataPrevista",
-              "header": "Data Prevista",
-              //"sort": "string" 
-              "format":webix.Date.dateToStr("%d-%m-%Y")          //ALTERAÇÃO NO FORMATO DA DINHEIRO!!
+              "id": "dataInclusao",
+              "header": "dataInclusao",
+              "sort": "string",
+              "format":webix.Date.dateToStr("%d-%m-%Y")
             },
             {
-              "id": "horaPrevista",
-              "header": "Hora Prevista",
-              "sort": "string"
+              "id": "dataAprovacao",
+              "header": "dataAprovacao",
+              "sort": "string",
+              "format":webix.Date.dateToStr("%d-%m-%Y")
             },
             {
-              "id": "tempoPrevisto",
-              "header": "Tempo Previsto",
-              //"sort": "string" 
-              "format": webix.Date.dateToStr("%d-%m-%Y")  //se colocar letra maiuscula fica QUARTA            //webix.i18n.priceFormat          //ALTERAÇÃO NO FORMATO DA DINHEIRO!!
+              "id": "dataEntrega",
+              "header": "dataEntrega",
+              "sort": "string",
+              "format":webix.Date.dateToStr("%d-%m-%Y")
             },
             {
-              "id": "Status",
-              "header": "Status",
-              "sort": "string"
-            }
-          ,       
+              "id": "dataEncerramento",
+              "header": "dataEncerramento",
+              "sort": "string",
+              "format":webix.Date.dateToStr("%d-%m-%Y")
+            },
+            {
+              "id": "valor",
+              "header": "valor",
+              "sort": "string",
+              "format":webix.i18n.numberFormat,
+              "width":100,
+            },
+            {
+              "id": "horas",
+              "header": "horas",
+              "sort": "string",
+              "width":100,
+            },
+            {
+              "id": "vlrHora",
+              "header": "vlrHora",
+              "sort": "string",
+              "format":webix.i18n.numberFormat,
+              "width":100,
+            },
+            {
+              "id": "statusSer",                                                             
+              "header": "statusSer",
+              "sort": "string",
+              "width":150,
+            },
+                
         { header:"", template:"<span class='webix_icon wxi-close delete_icon'></span>", width:35}
-		//{ template:"<input class='delbtn' type='button' value='Delete'>", width:100 }
     ],
     onClick:{
         delete_icon(e, id){
@@ -235,15 +250,11 @@ const table_tarefas = {                 //# 2- Modificação!
     on:{
 		onItemDblClick(id, e, node) {
 
-			/** PEGA valores do datatable */
-			let values = $$("table_tarefas").getItem(id);       //# 5- Modificação!
+			let values = $$("table_servicos").getItem(id);       
 
-            //showForm("win_parcelas", this.$view);
-			/** MOSTRA form_parcelas */
-			  showForm("win_tarefas");
+			  showForm("win_servicos");
 			
-			/** COLOCA valores do datatable no form_parcelas */
-            $$("form_tarefas").setValues(values);
+            $$("form_servicos").setValues(values);
 
 		},
         onAfterSelect(id){
@@ -254,26 +265,30 @@ const table_tarefas = {                 //# 2- Modificação!
     }
 }
 
-/** FORMULARIO parcelas */
-const form_tarefas = {                                   //# 6- Modificação!
+const form_servicos = {                                  
     view:"form", 
-    id:"form_tarefas", 
+    id:"form_servicos", 
 	autowidth:true,
   borderless:true,
  
-    elements:[                                               //# 7- Modificação!
-        { type:"section", template:"Edição de Terefas"},
-        { view:"text", name:"ID", label:"ID", invalidMessage:"Should be between 1970 and current" },
-        { view:"text", name:"titulo", label:"Titulo", invalidMessage:"Should be between 1970 and current" },
-        { view:"text", name:"descricao", label:"Descrição", invalidMessage:"Should be between 1970 and current" },
-        { view:"text", name:"dataPrevista", label:"Data Prevista", invalidMessage:"Should be between 1970 and current" },
-		{ view:"text", name:"horaPrevista", label:"Hora Prevista", invalidMessage:"Should be between 1970 and current" },
-        { view:"text", name:"tempoPrevisto", label:"Tempo Previsto", invalidMessage:"Cannot be empty or 0" },
-        { view:"text", name:"Status", label:"Status", invalidMessage:"Must be less than 100000" }, 
+    elements:[                                               
+        { type:"section", template:"Servços"},
+        { view:"text", name:"empresa", label:"empresa", disabled:true},
+        { view:"text", name:"clienteCodigo", label:"clienteCodigo", disabled:true},
+        { view:"text", name:"titulo", label:"titulo"},
+		    { view:"text", name:"descricao", label:"descricao"},
+        { view:"text", name:"dataInclusao", label:"dataInclusao"},
+        { view:"text", name:"dataAprovacao", label:"dataAprovacao"},
+        { view:"text", name:"dataEntrega", label:"dataEntrega"}, 
+        { view:"text", name:"dataEncerramento", label:"dataEncerramento"},
+        { view:"text", name:"valor", label:"valor"},
+        { view:"text", name:"horas", label:"horas"},
+        { view:"text", name:"vlrHora", label:"vlrHora"},
+        { view:"text", name:"statusSer", label:"statusSer", disabled:true},
         {
             margin:10, cols:[
-                { view:"button", id:"btn_save", value:"Save",click:saveTarefas},             //# 9- Modificação!
-                { view:"button", id:"btn_clear", value:"Clear", click:clearTarefas}
+                { view:"button", id:"btn_save", value:"Save",click:saveServicos},            
+                { view:"button", id:"btn_clear", value:"Clear", click:clearServicos}
                 
             ]
         },
@@ -281,24 +296,20 @@ const form_tarefas = {                                   //# 6- Modificação!
     ]
 }
 
-// #B1 - TELA PRINCIPAL
 var wPrincipal =
           { "id": "wPrincipal",
             "rows": [
-                      wPesquisa , // #B2
+                      wPesquisa ,
                       
 					  {cols: 
-                        [table_tarefas]                         //# 8- Modificação!
+                        [table_servicos]                        
                       }
             ]
-
           };
 
-// #C2
 var wBarraEsquerda =
       {
         "view": "sidebar",
-      //  "url": "demo->61b12d86b72b5e00183b15eb",
         "data": [
       		{
       			"value": "Amigos",
@@ -325,7 +336,6 @@ var wBarraEsquerda =
         "id": "wFiltros"
       };
 
-// #C3
 var wBarraDireita =  {
               "id": "wBarraDireita",
               "view": "sidebar",
@@ -355,17 +365,15 @@ var wBarraDireita =  {
               "width": 152
             };
 
-// #C1
 var wCorpo = {
       "id": "wCorpo",
       "height": 0,
       "type": "wide",
       "cols": [
-                wBarraEsquerda,      // #C2
-                wPrincipal,    // #B1
+                wBarraEsquerda,      
+                wPrincipal,   
                 { "rows":[
                   { 
-                  //  css: "menu", 
                    padding: 2, 
                     view: "form",
                     cols:[
@@ -380,27 +388,20 @@ var wCorpo = {
       ]
     };
 
-
-
-// 1 - PRINCPAL PARTE
 var ui = {
   responsive:true, 
-    rows:[  wToolbar // #A1
-          , wCorpo   // #C1
+    rows:[  wToolbar 
+          , wCorpo   
          ]
     };
 
-// CHAMA WEBIX
 webix.ready(function(){
 
 if (webix.CustomScroll)
       webix.CustomScroll.init();
 
-// SETA WEBIX PARA BR
 webix.i18n.setLocale("pt-BR");
-// ATIVA UI
 
-/** CRIA WINDOW POPUP para o FORM de PESQUISA */
 webix.ui({
   view:"popup",
   id:"win1",
@@ -408,42 +409,37 @@ webix.ui({
   head:false,
   body:webix.copy(form)
 });
- 
-/** CRIA WINDOW para o FORM form_parcelas */
-webix.ui({                                                           //# 8- Modificação!
+
+webix.ui({                                                         
   view:"window",
-  id:"win_tarefas",                                       
+  id:"win_servicos",                                       
   width:300,
 
       modal:true,
   position:"center",
 head:false,
-  body:webix.copy(form_tarefas)
+  body:webix.copy(form_servicos)
 });
 
  webix.ui.fullScreen();
  webix.ui(ui);
 
- /* Inicializa form */
  var dtini = new Date();
  var dd = '01';
- var mm = String(dtini.getMonth() + 1).padStart(2, '0'); //January is 0!
+ var mm = String(dtini.getMonth() + 1).padStart(2, '0'); 
  var yyyy = dtini.getFullYear();
 // alert(yyyy+' '+mm+' '+dd);
  $$("dtinicial").setValue(new Date(yyyy,mm - 1,dd));
  var periodo = dd + '/' + mm + '/' + yyyy;
  var hoje = new Date();
  var dd = String(hoje.getDate()).padStart(2, '0');
- var mm = String(hoje.getMonth() + 1).padStart(2, '0'); //January is 0!
+ var mm = String(hoje.getMonth() + 1).padStart(2, '0'); 
  var yyyy = hoje.getFullYear();
  $$("dtfinal").setValue(new Date(yyyy,mm - 1,dd));
  periodo += ' TO ' + dd + '/' + mm + '/' + yyyy;
  
-/** Chama dados das parcelas */
  executa(periodo);
 
-
- 
 });
 
 function showForm(winId, node){
@@ -455,21 +451,12 @@ $$(winId).getBody().focus();
 
 function executa(wvar){
 
-// alert ("periodo selecionado: " + wvar);
-  wJson = chamaAJAX("/ts/testes/Crud_Add_Registros/Crud_Tarefas/leitura.php");                         //# 9- Modificação! NOVA****
+  wJson = chamaAJAX("/ts/testes/CrudTabelas/Servicos_leitura.php");                        
   
-  //alert(JSON.stringify(wJson, null, 4));
 
-  $$("table_tarefas").clearAll();
-  $$("table_tarefas").parse(wJson.tarefas);                                                 //Tarefas("pai")
+  $$("table_servicos").clearAll();
+  $$("table_servicos").parse(wJson.servicos);                                                 
 
-/* AJAX WEBIX	
-webix.ajax("/ts/api/dbmy/consultaParcelas", function(text,data){
-      var wJson = data.json();
-      $$("wGrid").clearAll();
-       $$("wGrid").parse(wJson.parcelas);
- });
- */
 }
 
 
@@ -480,3 +467,8 @@ webix.ajax("/ts/api/dbmy/consultaParcelas", function(text,data){
 </head>
 <body></body>
 </html>
+
+<!-- ,
+    { view:"button", value:"Remove", click:function(){
+      $$("table_servicos").remove("id");
+    }}, -->

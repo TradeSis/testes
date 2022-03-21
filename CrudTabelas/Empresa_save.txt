@@ -1,0 +1,6 @@
+conectando mysql=u384787522_tswebdev
+ESTOU AQUI
+empresa = OUTRA
+webix_operation = insert
+insert
+ SQL INSERT INTO `empresa` (`empresa`) VALUES ('OUTRA')

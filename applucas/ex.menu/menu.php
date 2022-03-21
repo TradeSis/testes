@@ -10,14 +10,14 @@
 
 
 	<!-- Design -->
-	<link rel="stylesheet" type="text/css" href="/ts/testes/applucas/menu.css">	
+	<link rel="stylesheet" type="text/css" href="/ts/testes/CrudTabelas/menu.css">	
 	<style>
 		
 	
 				
 
 	</style>
-	<script type="text/javascript"          src="/ts/testes/applucas/menu.js"></script>
+	<script type="text/javascript"          src="/ts/testes/CrudTabelas/menu.js"></script>
 	
 </head>
 <body></body>

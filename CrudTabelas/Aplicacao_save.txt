@@ -1,0 +1,8 @@
+conectando mysql=u384787522_tswebdev
+ESTOU AQUI
+aplicacao = TEST
+id = 1647468528055
+webix_operation = update
+update
+ SQL UPDATE aplicacao SET aplicacao='TEST' WHERE aplicacao=TEST
+Error: UPDATE aplicacao SET aplicacao='TEST' WHERE aplicacao=TEST<br>Unknown column 'TEST' in 'where clause'

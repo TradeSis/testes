@@ -1,0 +1,18 @@
+conectando mysql=u384787522_tswebdev
+ESTOU AQUI
+ID = 6
+empresa = TRADESIS
+clienteCodigo = 
+titulo = 2
+descricao = 2
+dataInclusao = 0000-00-00
+dataAprovacao = 0000-00-00
+dataEntrega = 0000-00-00
+dataEncerramento = 0000-00-00
+valor = 2.00
+horas = 2
+vlrHora = 2.00
+statusSer = 2
+id = 1647301750018
+webix_operation = delete
+delete

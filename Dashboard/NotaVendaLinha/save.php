@@ -11,7 +11,7 @@
   
   $dbmy=mysqli_connect($hostname,$username, $password,$dbname);
 
-  $fp = fopen('D:Programas\XAMPP\htdocs\ts\testes\CrudTabelas\saveEmpresa.txt', 'w'); //********** */      //# 1- Modificação!
+  $fp = fopen('D:Programas\XAMPP\htdocs\ts\testes\Dashboard\NotaVenda\save.txt' 'w'); //********** */      //# 1- Modificação!
 
   fwrite($fp, "conectando mysql=".$dbname."\n");
 
@@ -49,15 +49,14 @@ fwrite($fp, $webix_operation."\n");
 
 	if($webix_operation=="update"){
       
-		$ID=$_POST['ID'];                                                    //# 2- Modificação!
-		$titulo=$_POST['titulo'];                                          //MODIFICAR METODO POST PARA GET!
-		$descricao=$_POST['descricao'];
-		$dataPrevista=$_POST['dataPrevista'];
-		$horaPrevista=$_POST['horaPrevista'];
-        $tempoPrevisto=$_POST['tempoPrevisto'];
-        $Status=$_POST['Status'];
+		$empresa=$_POST['empresa'];                                                                                            
+		$ano=$_POST['ano'];
+		$mes=$_POST['mes'];
+        $vlrVendas=$_POST['vlrVendas'];
+        $qtdVendas=$_POST['qtdVendas'];
+		
 
-        $sql = "UPDATE tarefas SET titulo='$titulo', descricao='$descricao', dataPrevista='$dataPrevista', horaPrevista=$horaPrevista, tempoPrevisto='$tempoPrevisto'";
+        $sql = "UPDATE notaVenda SET empresa='$empresa', ano='$ano', mes='$mes', vlrVendas='$vlrVendas', qtdVendas='$qtdVendas'";
       /*   if ($tempoPrevisto=='0000-00-00'||$tempoPrevisto=='')
             { $sql .= " NULL ";} 
         else {
@@ -66,11 +65,11 @@ fwrite($fp, $webix_operation."\n");
         
       
         
-        $sql .=" WHERE ID=$ID"; //CHAVE PRIMARIA - NUNCA VAI SER ALTERADO!!!! 
+        //$sql .=" WHERE ID=$ID"; //CHAVE PRIMARIA - NUNCA VAI SER ALTERADO!!!! 
 
-        fwrite($fp,  " tempoPrevisto =  " . $tempoPrevisto ."\n");
+        //fwrite($fp,  " tempoPrevisto =  " . $tempoPrevisto ."\n");
 
-		fwrite($fp,  " SQL " . $sql ."\n");
+		//fwrite($fp,  " SQL " . $sql ."\n");
 
         if (mysqli_query($dbmy, $sql)) {
 			echo json_encode(array("statusCode"=>200));
@@ -82,18 +81,17 @@ fwrite($fp, $webix_operation."\n");
 		
 	}
 
-    if($webix_operation=="insert"){                                          //# 3- Modificação!
+    if($webix_operation=="insert"){                                          
       
 		
-		$titulo=$_POST['titulo'];
-		$descricao=$_POST['descricao'];
-        $dataPrevista=$_POST['dataPrevista'];
-		$horaPrevista=$_POST['horaPrevista'];
-		$tempoPrevisto=$_POST['tempoPrevisto'];
-        $Status=$_POST['Status'];        
+		$empresa=$_POST['empresa'];                                                                                            
+		$ano=$_POST['ano'];
+		$mes=$_POST['mes'];
+        $vlrVendas=$_POST['vlrVendas'];
+        $qtdVendas=$_POST['qtdVendas'];     
 
-        $sql  = "INSERT INTO `tarefas` (`titulo`, `descricao`, `dataPrevista`, `horaPrevista`, `tempoPrevisto`, `Status`)" ;
-        $sql .= " VALUES ('$titulo', '$descricao', '$dataPrevista', '$horaPrevista', '$tempoPrevisto', '$Status' )";
+        $sql  = "INSERT INTO `notaVenda` (`empresa`, `ano`, `mes`, `vlrVendas`, `qtdVendas`)" ;
+        $sql .= " VALUES ('$empresa',  '$ano', '$mes', '$vlrVendas', '$qtdVendas' )";
         
 
        

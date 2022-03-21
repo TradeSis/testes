@@ -1,0 +1,6 @@
+conectando mysql=u384787522_tswebdev
+ESTOU AQUI
+statusSer = andamento
+webix_operation = insert
+insert
+ SQL INSERT INTO `statusServico` ( `statusSer`) VALUES ('andamento')

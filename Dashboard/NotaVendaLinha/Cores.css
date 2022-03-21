@@ -1,0 +1,51 @@
+.teste{
+ background-color: #5fe05b;
+}
+
+
+id: "graf_linha",
+  view:"chart",
+          height:250,
+          type:"line",
+          barWidth:60,
+          radius:2,
+          gradient:"rising",
+          xAxis:{
+            template:"'#mes#"
+          },
+          yAxis:{
+            start:0,
+            step:10,
+            //end:100
+          },
+          legend:{
+            values:[{text:"2019",color:"#58dccd"},{text:"2020",color:"#ab5be0"},{text:"2021",color:"#5fe05b"}],
+            valign:"middle",
+            align:"right",
+            width:90,
+            layout:"y"
+          },
+          series:[
+            {
+              value:"#vlrano1#",
+              color: "#58dccd",
+              tooltip:{
+                template:"#vlrano1#"
+              }
+            },
+            {
+              value:"#vlrano2#",
+              color:"#ab5be0",
+              tooltip:{
+                template:"#vlrano2#"
+              }
+            },
+            {
+              value:"#vlrano3#",
+              color:"#5fe05b",
+              tooltip:{
+                template:"#vlrano3#"
+              }
+            }
+          ],
+        };

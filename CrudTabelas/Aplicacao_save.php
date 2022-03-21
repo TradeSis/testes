@@ -1,7 +1,6 @@
 <?php
 
 
-  // parametros de conexao
   $hostname="sql486.main-hosting.eu";
   $username="u384787522_helio";
   $password="2Et*MNY1oJul";
@@ -11,7 +10,7 @@
   
   $dbmy=mysqli_connect($hostname,$username, $password,$dbname);
 
-  $fp = fopen('D:Programas\XAMPP\htdocs\ts\testes\CrudTabelas\saveEmpresa.txt', 'w'); //********** */      //# 1- Modificação!
+  $fp = fopen('D:TRADESIS\ts\testes\CrudTabelas\Aplicacao_save.txt', 'w'); 
 
   fwrite($fp, "conectando mysql=".$dbname."\n");
 
@@ -25,8 +24,6 @@
 
 function pegaparam($varname) {
     $v=(isset($_GET[$varname]))?$_GET[$varname]:((isset($_POST[$varname]))?$_POST[$varname]:'');
-    //if(!$v) $v = $_SESSION[$varname];
-    //else $_SESSION[$varname] = $v;
     return($v);
 }
 
@@ -49,26 +46,13 @@ fwrite($fp, $webix_operation."\n");
 
 	if($webix_operation=="update"){
       
-		$ID=$_POST['ID'];                                                    //# 2- Modificação!
-		$titulo=$_POST['titulo'];                                          //MODIFICAR METODO POST PARA GET!
-		$descricao=$_POST['descricao'];
-		$dataPrevista=$_POST['dataPrevista'];
-		$horaPrevista=$_POST['horaPrevista'];
-        $tempoPrevisto=$_POST['tempoPrevisto'];
-        $Status=$_POST['Status'];
+		$aplicacao=$_POST['aplicacao'];                                                  
+		
 
-        $sql = "UPDATE tarefas SET titulo='$titulo', descricao='$descricao', dataPrevista='$dataPrevista', horaPrevista=$horaPrevista, tempoPrevisto='$tempoPrevisto'";
-      /*   if ($tempoPrevisto=='0000-00-00'||$tempoPrevisto=='')
-            { $sql .= " NULL ";} 
-        else {
-            { $sql .= " '$tempoPrevisto' ";} 
-        } */
+        $sql = "UPDATE aplicacao SET aplicacao='$aplicacao'";
         
-      
-        
-        $sql .=" WHERE ID=$ID"; //CHAVE PRIMARIA - NUNCA VAI SER ALTERADO!!!! 
+        $sql .=" WHERE aplicacao=$aplicacao";
 
-        fwrite($fp,  " tempoPrevisto =  " . $tempoPrevisto ."\n");
 
 		fwrite($fp,  " SQL " . $sql ."\n");
 
@@ -82,18 +66,14 @@ fwrite($fp, $webix_operation."\n");
 		
 	}
 
-    if($webix_operation=="insert"){                                          //# 3- Modificação!
+    if($webix_operation=="insert"){                                          
       
 		
-		$titulo=$_POST['titulo'];
-		$descricao=$_POST['descricao'];
-        $dataPrevista=$_POST['dataPrevista'];
-		$horaPrevista=$_POST['horaPrevista'];
-		$tempoPrevisto=$_POST['tempoPrevisto'];
-        $Status=$_POST['Status'];        
+		$aplicacao=$_POST['aplicacao'];
+		        
 
-        $sql  = "INSERT INTO `tarefas` (`titulo`, `descricao`, `dataPrevista`, `horaPrevista`, `tempoPrevisto`, `Status`)" ;
-        $sql .= " VALUES ('$titulo', '$descricao', '$dataPrevista', '$horaPrevista', '$tempoPrevisto', '$Status' )";
+        $sql  = "INSERT INTO `aplicacao` (`aplicacao`)" ;
+        $sql .= " VALUES ('$aplicacao')";
         
 
        

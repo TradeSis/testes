@@ -29,16 +29,6 @@ function chamaAJAX(wURL,wType="get",wdataType="json") {
 		
 			success: function (json_get) {
 				res = json_get;
-				/*
-				obj = json_get;
-				for(var i in obj) {
-					//  alert(JSON.stringify(obj[i], null, 4));
-					//   alert(obj[i].numeroNFSe);
-					//	res.push(obj[i]);
-				}
-				*/
-			//  alert(JSON.stringify(res, null, 4));
-
 				
 			},
 			error: function (xhr, status, errorThrown) {
@@ -86,7 +76,7 @@ let saveTarefas = () => {                                //# 4- Modificação!
 // #A2 - TITULO
 var wTitulo = {
           "view": "label",
-          "label": "Registro Reunião.",
+          "label": "Dashboard",
           "id": "wTitulo",
           "height": 0
         };
@@ -135,6 +125,96 @@ var wPesquisa = {
           }
         ]
       };
+//*********************************************************************************************************** */
+var wcombo ={
+   "rows":[
+     {
+     //"css": "webix_dark",
+			"view": "toolbar",
+			"cols": [
+				{ "view": "label", "label": "Dash Nota Venda" },
+				{ "label": "Ano", "value": "1", "options": "demo->61d84d09b72b5e00183b319d", "view": "combo", "height": 38 }
+       ] 
+ }]
+};
+
+var windices = {
+  
+    "rows": [
+						{ "label": "Faturamento", "view": "label", "align": "center" },
+						{
+							"cols": [
+								{ "view": "label"},
+								{ "label": "Ano", "view": "label", "align": "center"},
+								{ "label": "Média  Mês", "view": "label", "align": "center" }
+							]
+						},
+						{
+							"cols": [
+								{ "label": "Realizado", "view": "label" },
+								{
+									"label": "R$ 999.999.99,99",
+									"view": "label",
+								
+									"align": "right"
+									
+								},
+								{ "label": "R$ 99.999.99,99", "view": "label","align": "right" }
+							]
+						},
+						{
+							"cols": [
+								{ "label": "Meta", "view": "label" },
+								{
+									"label": "R$ 999.999.99,99",
+									"view": "label",
+									
+								
+									"align": "right"
+								},
+								{ "label": "R$ 9.999.99,99", "view": "label", "align": "right" }
+							]
+						}
+					]
+  
+};
+var wgrafico1 = {
+  "id": "wgrafico1",
+  "type": "bar",
+  "value": "#vlrVendas#",         
+  "label": "#mes#",    //add no php e bd um campo com os meses!
+  "view": "chart",
+  "height": 136,
+  yAxis:{},
+  xAxis:{
+    lines:true,
+    title:"Mensal",
+    template:"#mes#"                       
+  }
+};
+
+var wgrafico2 = {
+  "id": "wgrafico2",
+  "type": "bar",
+  "value": "#vlrVendas#",         
+  "label": "#vlrVendas#",
+  "view": "chart",
+  "height": 136,
+
+  yAxis:{},
+  xAxis:{
+    lines:true,
+    title:"Anual",
+    template:"#ano#"                       
+  }
+};
+
+
+
+
+
+
+//*********************************************************************************************************** */
 
 var wDtinicial = { id:"dtinicial","view": "datepicker", "height": 0 ,
               
@@ -181,46 +261,34 @@ const table_tarefas = {                 //# 2- Modificação!
     select:true,
    // url:"data/data.js",
     hover:"myhover",
-    save:/* "/ts/erp/testes/crud/save.php" */  "/ts/testes/Crud_Add_Registros/Crud_Tarefas/save.php", /* PHP SAVE IN MYSQL */                    //****************##########1 */
+    save: "/ts/testes/Dashboard/NotaVenda/save.php", /* PHP SAVE IN MYSQL */                    //****************##########1 */
 
     columns:                           //# 1- Modificação!
         [
-            {
-              "id": "ID",                     
-              "header": "ID",
+          {
+              "id": "empresa",                     
+              "header": "empresa",
               "sort": "string"
             },
             {
-              "id": "titulo",
-              "header": "titulo",
+              "id": "ano",
+              "header": "ano",
               "sort": "string"
             },
             {
-              "id": "descricao",
-              "header": "Descrição",
-              "sort": "string"
+              "id": "mes",
+              "header": "mes",
+              "sort": "string" 
             },
             {
-              "id": "dataPrevista",
-              "header": "Data Prevista",
-              //"sort": "string" 
-              "format":webix.Date.dateToStr("%d-%m-%Y")          //ALTERAÇÃO NO FORMATO DA DINHEIRO!!
+              "id": "vlrVendas",
+              "header": "vlrVendas",
+              "sort": "string" 
             },
             {
-              "id": "horaPrevista",
-              "header": "Hora Prevista",
-              "sort": "string"
-            },
-            {
-              "id": "tempoPrevisto",
-              "header": "Tempo Previsto",
-              //"sort": "string" 
-              "format": webix.Date.dateToStr("%d-%m-%Y")  //se colocar letra maiuscula fica QUARTA            //webix.i18n.priceFormat          //ALTERAÇÃO NO FORMATO DA DINHEIRO!!
-            },
-            {
-              "id": "Status",
-              "header": "Status",
-              "sort": "string"
+              "id": "qtdVendas",
+              "header": "qtdVendas",
+              "sort": "string" 
             }
           ,       
         { header:"", template:"<span class='webix_icon wxi-close delete_icon'></span>", width:35}
@@ -242,7 +310,7 @@ const table_tarefas = {                 //# 2- Modificação!
 			/** MOSTRA form_parcelas */
 			  showForm("win_tarefas");
 			
-			/** COLOCA valores do datatable no form_parcelas */
+			
             $$("form_tarefas").setValues(values);
 
 		},
@@ -254,7 +322,6 @@ const table_tarefas = {                 //# 2- Modificação!
     }
 }
 
-/** FORMULARIO parcelas */
 const form_tarefas = {                                   //# 6- Modificação!
     view:"form", 
     id:"form_tarefas", 
@@ -263,13 +330,10 @@ const form_tarefas = {                                   //# 6- Modificação!
  
     elements:[                                               //# 7- Modificação!
         { type:"section", template:"Edição de Terefas"},
-        { view:"text", name:"ID", label:"ID", invalidMessage:"Should be between 1970 and current" },
-        { view:"text", name:"titulo", label:"Titulo", invalidMessage:"Should be between 1970 and current" },
-        { view:"text", name:"descricao", label:"Descrição", invalidMessage:"Should be between 1970 and current" },
-        { view:"text", name:"dataPrevista", label:"Data Prevista", invalidMessage:"Should be between 1970 and current" },
-		{ view:"text", name:"horaPrevista", label:"Hora Prevista", invalidMessage:"Should be between 1970 and current" },
-        { view:"text", name:"tempoPrevisto", label:"Tempo Previsto", invalidMessage:"Cannot be empty or 0" },
-        { view:"text", name:"Status", label:"Status", invalidMessage:"Must be less than 100000" }, 
+        { view:"text", name:"ano", label:"ano", invalidMessage:"Should be between 1970 and current" },
+        { view:"text", name:"mes", label:"mes", invalidMessage:"Should be between 1970 and current" },
+        { view:"text", name:"vlrVendas", label:"vlrVendas", invalidMessage:"Should be between 1970 and current" },
+        { view:"text", name:"qtdVendas", label:"qtdVendas", invalidMessage:"Should be between 1970 and current" },
         {
             margin:10, cols:[
                 { view:"button", id:"btn_save", value:"Save",click:saveTarefas},             //# 9- Modificação!
@@ -281,11 +345,20 @@ const form_tarefas = {                                   //# 6- Modificação!
     ]
 }
 
+var Graficos = {
+  "id": "Graficos",
+    cols:[  wgrafico1 
+          , wgrafico2   
+         ]
+    };
+
 // #B1 - TELA PRINCIPAL
 var wPrincipal =
           { "id": "wPrincipal",
-            "rows": [
-                      wPesquisa , // #B2
+            "rows": [ wcombo,
+                      windices,
+                      Graficos,
+                     // wPesquisa ,
                       
 					  {cols: 
                         [table_tarefas]                         //# 8- Modificação!
@@ -294,11 +367,10 @@ var wPrincipal =
 
           };
 
-// #C2
+
 var wBarraEsquerda =
       {
         "view": "sidebar",
-      //  "url": "demo->61b12d86b72b5e00183b15eb",
         "data": [
       		{
       			"value": "Amigos",
@@ -325,7 +397,7 @@ var wBarraEsquerda =
         "id": "wFiltros"
       };
 
-// #C3
+
 var wBarraDireita =  {
               "id": "wBarraDireita",
               "view": "sidebar",
@@ -355,14 +427,14 @@ var wBarraDireita =  {
               "width": 152
             };
 
-// #C1
+
 var wCorpo = {
       "id": "wCorpo",
       "height": 0,
       "type": "wide",
       "cols": [
-                wBarraEsquerda,      // #C2
-                wPrincipal,    // #B1
+                wBarraEsquerda,      
+                wPrincipal,    
                 { "rows":[
                   { 
                   //  css: "menu", 
@@ -414,7 +486,7 @@ webix.ui({                                                           //# 8- Modi
   view:"window",
   id:"win_tarefas",                                       
   width:300,
-
+  disabled:true,
       modal:true,
   position:"center",
 head:false,
@@ -442,6 +514,36 @@ head:false,
 /** Chama dados das parcelas */
  executa(periodo);
 
+     $$("wgrafico1").clearAll();                                      // ULTIMA PARADA!!
+     $$("wgrafico1").parse(wJson.notaVenda);
+//*****************************************************************************************************************************************************!!! */
+      var JsonOriginal = wJson.notaVenda;
+     vjsonBling = [];
+     var index = 0;
+     var i = 0;
+     for(i in JsonOriginal) {
+      //alert("CAMPO= "+JSON.stringify(JsonOriginal[i], null, 4));
+      index = vjsonBling.findIndex(x => x.ano == JsonOriginal[i].ano);
+     // alert(index);
+
+      var vValor = parseFloat(JsonOriginal[i].vlrVendas)
+      
+              if (index == -1) {
+                        
+                vjsonBling.push({ "ano": JsonOriginal[i].ano,     //n achou criar um registro no vJsonBlig
+                                  "vlrVendas": vValor});
+
+              
+              } else {
+                
+                vjsonBling[index].vlrVendas += vValor; //
+
+              }
+     };
+
+     $$("wgrafico2").clearAll();                                      // ULTIMA PARADA!!
+     $$("wgrafico2").parse(vjsonBling);
+
 
  
 });
@@ -456,20 +558,13 @@ $$(winId).getBody().focus();
 function executa(wvar){
 
 // alert ("periodo selecionado: " + wvar);
-  wJson = chamaAJAX("/ts/testes/Crud_Add_Registros/Crud_Tarefas/leitura.php");                         //# 9- Modificação! NOVA****
+  wJson = chamaAJAX("/ts/testes/Dashboard/NotaVenda/leitura.php");                         //# 9- Modificação! NOVA****
   
   //alert(JSON.stringify(wJson, null, 4));
 
   $$("table_tarefas").clearAll();
-  $$("table_tarefas").parse(wJson.tarefas);                                                 //Tarefas("pai")
+  $$("table_tarefas").parse(wJson.notaVenda);                                                 //Tarefas("pai")
 
-/* AJAX WEBIX	
-webix.ajax("/ts/api/dbmy/consultaParcelas", function(text,data){
-      var wJson = data.json();
-      $$("wGrid").clearAll();
-       $$("wGrid").parse(wJson.parcelas);
- });
- */
 }
 
 
