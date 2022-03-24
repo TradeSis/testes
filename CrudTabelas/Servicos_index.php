@@ -108,7 +108,19 @@ var wPesquisa = {
 				"width":120,
                 "height": 0,
                 click:function(){ showForm("win_servicos");
-                  $$("empresa").define("disabled", false); }                        
+                  
+                  $$("empresa").define("disabled", false);
+                  $$("clienteCodigo").define("disabled", false);
+                  $$("titulo").define("disabled", false);
+                  $$("descricao").define("disabled", false);
+                  $$("dataInclusao").define("disabled", false);
+                  $$("dataAprovacao").define("disabled", false);
+                  $$("dataEntrega").define("disabled", false); 
+                  $$("dataEncerramento").define("disabled", false);
+                  $$("valor").define("disabled", false);
+                  $$("horas").define("disabled", false);
+                  $$("vlrHora").define("disabled", false);
+                  $$("statusSer").define("disabled", false);}                        
               }
             ]
           }
@@ -253,6 +265,20 @@ const table_servicos = {
 			let values = $$("table_servicos").getItem(id);       
 
 			  showForm("win_servicos");
+
+                  
+                  $$("empresa").define("disabled", false);
+                  $$("clienteCodigo").define("disabled", false);
+                  $$("titulo").define("disabled", true);
+                  $$("descricao").define("disabled", true);
+                  $$("dataInclusao").define("disabled", true);
+                  $$("dataAprovacao").define("disabled", true);
+                  $$("dataEntrega").define("disabled", true); 
+                  $$("dataEncerramento").define("disabled", true);
+                  $$("valor").define("disabled", true);
+                  $$("horas").define("disabled", true);
+                  $$("vlrHora").define("disabled", true);
+                  $$("statusSer").define("disabled", false);
 			
             $$("form_servicos").setValues(values);
 
@@ -273,18 +299,18 @@ const form_servicos = {
  
     elements:[                                               
         { type:"section", template:"Servços"},
-        { view:"text", name:"empresa", label:"empresa", disabled:true},
-        { view:"text", name:"clienteCodigo", label:"clienteCodigo", disabled:true},
-        { view:"text", name:"titulo", label:"titulo"},
-		    { view:"text", name:"descricao", label:"descricao"},
-        { view:"text", name:"dataInclusao", label:"dataInclusao"},
-        { view:"text", name:"dataAprovacao", label:"dataAprovacao"},
-        { view:"text", name:"dataEntrega", label:"dataEntrega"}, 
-        { view:"text", name:"dataEncerramento", label:"dataEncerramento"},
-        { view:"text", name:"valor", label:"valor"},
-        { view:"text", name:"horas", label:"horas"},
-        { view:"text", name:"vlrHora", label:"vlrHora"},
-        { view:"text", name:"statusSer", label:"statusSer", disabled:true},
+        { view:"text", id:"empresa", name:"empresa", label:"empresa"},
+        { view:"text", id:"clienteCodigo", name:"clienteCodigo", label:"clienteCodigo"},
+        { view:"text", id:"titulo", name:"titulo", label:"titulo"},
+		    { view:"text", id:"descricao", name:"descricao", label:"descricao"},
+        { view:"text", id:"dataInclusao", name:"dataInclusao", label:"dataInclusao"},
+        { view:"text", id:"dataAprovacao", name:"dataAprovacao", label:"dataAprovacao"},
+        { view:"text", id:"dataEntrega", name:"dataEntrega", label:"dataEntrega"}, 
+        { view:"text", id:"dataEncerramento", name:"dataEncerramento", label:"dataEncerramento"},
+        { view:"text", id:"valor", name:"valor", label:"valor"},
+        { view:"text", id:"horas", name:"horas", label:"horas"},
+        { view:"text", id:"vlrHora", name:"vlrHora", label:"vlrHora"},
+        { view:"text", id:"statusSer", name:"statusSer", label:"statusSer"},
         {
             margin:10, cols:[
                 { view:"button", id:"btn_save", value:"Save",click:saveServicos},            

@@ -454,7 +454,6 @@ var JsonOriginal = JsonEntrada.notaVenda;
             
 
                 vjsonBling.push({ "mes": JsonOriginal[i].mes,     //n achou, criar um registro novo vJsonBlig
-                                  "ano": JsonOriginal[i].ano,
                                   "vlrano1": vvlrano2019,
                                   "vlrano2": vvlrano2020,
                                   "vlrano3": vvlrano2021});

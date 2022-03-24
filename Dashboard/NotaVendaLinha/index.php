@@ -151,51 +151,24 @@ var graf_linha = {
           radius:2,
           gradient:"rising",
           xAxis:{
-            template:"'#mes#"
+            template:"'#MesAno#"
           },
           yAxis:{
             start:0,
             step:10,
             //end:100
           },
-          legend:{
-            values:[{text:"2019",color:"#58dccd"},{text:"2020",color:"#ab5be0"},{text:"2021",color:"#36abee"}],
-            valign:"middle",
-            align:"right",
-            width:90,
-            layout:"y"
-          },
           series:[
             {
-              value:"#vlrano1#",
+              value:"#VTotal#",
               color: "#5fe05b",
               tooltip:{
-                template:"#vlrano1#"
+                template:"#VTotal#"
               },
               line:{
                 color:"#5fe05b"
               }
               
-            },
-            {
-              value:"#vlrano2#",
-              color:"#ab5be0",
-              tooltip:{
-                template:"#vlrano2#"
-              },
-              line:{
-                color:"#ab5be0"
-              }
-            },
-            {
-              value:"#vlrano3#",
-              color:"#5fe05b",
-              tooltip:{
-                template:"#vlrano3#"
-              },
-              line:{
-                color:"#36abee"
-              }
             }
           ],
         };
@@ -238,6 +211,7 @@ const table_tarefas = {
             }
           ,       
         { header:"", template:"<span class='webix_icon wxi-close delete_icon'></span>", width:35}
+		
     ],
     onClick:{
         delete_icon(e, id){
@@ -424,61 +398,47 @@ function carregaTableVendas(wJson){
 
 
 function carregaGraficoVendasTodosAnos(JsonEntrada){
-
+ 
 var JsonOriginal = JsonEntrada.notaVenda;
  vjsonBling = [];
 
  var index = 0;
  var i = 0;
 
- var wTotal = 0;
-
  for(i in JsonOriginal) {
   //alert("CAMPO= "+JSON.stringify(JsonOriginal[i], null, 4));
 
-  index = vjsonBling.findIndex(x => x.mes == JsonOriginal[i].mes); // TESTA SE EXISTE
+  var AnoMes = JsonOriginal[i].mes + '/' + JsonOriginal[i].ano;
+
+  index = vjsonBling.findIndex(x => x.MesAno == AnoMes); // TESTA SE EXISTE
    //alert(index);
   var vValor = parseFloat(JsonOriginal[i].vlrVendas);
-  var vvlrano2019 = 0;
-  var vvlrano2020 = 0;
-  var vvlrano2021 = 0;
+  
+  
 
  //  alert("Mes="+JsonOriginal[i].mes+" Ano="+JsonOriginal[i].ano+" Valor="+vValor);
-   if (JsonOriginal[i].ano=="2019") {
-                  vvlrano2019 = vValor;                   
-              }
-   if (JsonOriginal[i].ano=="2020") {
-                  vvlrano2020 = vValor;                   
-   }
-   if (JsonOriginal[i].ano=="2021") {
-          vvlrano2021 = vValor;  
-          
-          wTotal += vValor;
 
-   }
 
           if (index == -1 ) {
             
 
-                vjsonBling.push({ "mes": JsonOriginal[i].mes,     //n achou, criar um registro novo vJsonBlig
-                                  "ano": JsonOriginal[i].ano,
-                                  "vlrano1": vvlrano2019,
-                                  "vlrano2": vvlrano2020,
-                                  "vlrano3": vvlrano2021});
+                vjsonBling.push({
+                  //nome da estrutura/variavel
+                                  "MesAno": AnoMes,
+                                  "VTotal": vValor
+                               });
 
           
           } else {
               
-               vjsonBling[index].vlrano1 += vvlrano2019; //Acumula valores
-               vjsonBling[index].vlrano2 += vvlrano2020; //
-               vjsonBling[index].vlrano3 += vvlrano2021; //
-                
+               //
+               vjsonBling[index].VTotal += vValor;
           }
  };
 
 
 console.log("NOVO JSON= "+JSON.stringify(vjsonBling, null, 4));
-
+ 
  
 
  $$("graf_linha").clearAll();                                      

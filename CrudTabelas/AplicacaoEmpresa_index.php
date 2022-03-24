@@ -112,7 +112,8 @@ var wPesquisa = {
 				"width":120,
                 "height": 0,
                 click:function(){ showForm("win_aplicacaoEmpresa");
-                  $$("empresa").define("disabled", false); }                      
+                  $$("empresa").define("disabled", false);
+                  $$("aplicacao").define("disabled", false); }                      
               }
             ]
           }
@@ -191,6 +192,9 @@ const table_aplicacaoEmpresa = {
 			let values = $$("table_aplicacaoEmpresa").getItem(id);       
 	
 			  showForm("win_aplicacaoEmpresa");
+
+        $$("empresa").define("disabled", true);
+        $$("aplicacao").define("disabled", true);
 			
             $$("form_aplicacaoEmpresa").setValues(values);
 
@@ -210,9 +214,9 @@ const form_aplicacaoEmpresa = {
   borderless:true,
  
     elements:[                                               
-        { type:"section", template:"Aplicação para Empresa", disabled:true},
-        { view:"text", name:"empresa", label:"empresa", disabled:true},
-        { view:"text", name:"aplicacao", label:"Aplicação",},
+        { type:"section", template:"Aplicação para Empresa"},
+        { view:"text", id:"empresa", name:"empresa", label:"empresa", disabled:true},
+        { view:"text", id:"aplicacao", name:"aplicacao", label:"Aplicação",},
         
       
         {

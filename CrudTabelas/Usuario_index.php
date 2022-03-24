@@ -105,7 +105,10 @@ var wPesquisa = {
 				"width":120,
                 "height": 0,
                 click:function(){ showForm("win_usuario");
-                  $$("empresa").define("disabled", false); }                         
+                  $$("email").define("disabled", true);
+                  $$("empresa").define("disabled", true);
+                  $$("nome").define("disabled", false);
+                  $$("senha").define("disabled", false); }                         
               }
             ]
           }
@@ -194,6 +197,11 @@ const table_usuario = {
 			let values = $$("table_usuario").getItem(id);       
 
 			  showForm("win_usuario");
+
+        $$("email").define("disabled", true);
+        $$("empresa").define("disabled", true);
+        $$("nome").define("disabled", true);
+        $$("senha").define("disabled", true);
 			
             $$("form_usuario").setValues(values);
 
@@ -214,10 +222,10 @@ const form_usuario = {
  
     elements:[                                               
         { type:"section", template:"Edição de Terefas"},
-        { view:"text", name:"email", label:"email",disabled:true },
-        { view:"text", name:"empresa", label:"empresa", disabled:true},
-        { view:"text", name:"nome", label:"nome"},
-        { view:"text", name:"senha", label:"senha"}, 
+        { view:"text", id:"email", name:"email", label:"email"},
+        { view:"text", id:"empresa", name:"empresa", label:"empresa"},
+        { view:"text", id:"nome", name:"nome", label:"nome"},
+        { view:"text", id:"senha", name:"senha", label:"senha"}, 
         {
             margin:10, cols:[
                 { view:"button", id:"btn_save", value:"Save",click:saveUsuario},             

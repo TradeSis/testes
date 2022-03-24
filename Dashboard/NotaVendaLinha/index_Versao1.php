@@ -79,7 +79,7 @@ var wcombo ={
      
 			"view": "toolbar",
 			"cols": [
-				{ "view": "label", "label": "Grafico Anos" },
+				{ "view": "label", "label": "Grafico Linha" },
 
 				{ view:"combo", width:300, id:"wcombo",
       label: 'Ano',  name:"ano"
@@ -142,32 +142,64 @@ var windices = {
   
 };
 
-var graf_pizza = {
-  id: "graf_pizza",
-  view: "chart",
-  type:"pie3D", //donut
-  value:"#ValorTotal#",
-  label:"#ano#",
-  pieInnerText:"#ValorTotal#",
-  tooltip:{
-                template:"#ano#"
+var graf_linha = {
+  id: "graf_linha",
+  view:"chart",
+          height:250,
+          type:"line",
+          barWidth:60,
+          radius:2,
+          gradient:"rising",
+          xAxis:{
+            template:"'#mes#"
+          },
+          yAxis:{
+            start:0,
+            step:10,
+            //end:100
+          },
+          legend:{
+            values:[{text:"2019",color:"#58dccd"},{text:"2020",color:"#ab5be0"},{text:"2021",color:"#36abee"}],
+            valign:"middle",
+            align:"right",
+            width:90,
+            layout:"y"
+          },
+          series:[
+            {
+              value:"#vlrano1#",
+              color: "#5fe05b",
+              tooltip:{
+                template:"#vlrano1#"
               },
-   //color:"#36abee",
-  
-  legend:{
-    width: 75,
-    align:"right",
-    valign:"middle",
-    template:"#ano#"
-  },
-  //pieInnerText:function(obj){ return obj.Xanos},
-  //pieInnerText:"#ano#",
-  shadow:0,
-  gradient:true,
-  //height:300,
-   
+              line:{
+                color:"#5fe05b"
+              }
+              
+            },
+            {
+              value:"#vlrano2#",
+              color:"#ab5be0",
+              tooltip:{
+                template:"#vlrano2#"
+              },
+              line:{
+                color:"#ab5be0"
+              }
+            },
+            {
+              value:"#vlrano3#",
+              color:"#5fe05b",
+              tooltip:{
+                template:"#vlrano3#"
+              },
+              line:{
+                color:"#36abee"
+              }
+            }
+          ],
+        };
 
-};
 
 const table_tarefas = {                 
     view:"datatable", 
@@ -177,7 +209,7 @@ const table_tarefas = {
     hover:"myhover",
     save: "/ts/testes/Dashboard/NotaVendaGraficos/save.php",
 
-    columns:                           //# 1- Modificação!
+    columns:                           
         [
           {
               "id": "empresa",                     
@@ -206,7 +238,7 @@ const table_tarefas = {
             }
           ,       
         { header:"", template:"<span class='webix_icon wxi-close delete_icon'></span>", width:35}
-		//{ template:"<input class='delbtn' type='button' value='Delete'>", width:100 }
+        { header:"", template:"<span class='webix_icon wxi-close delete_icon'></span>", width:35}
     ],
     onClick:{
         delete_icon(e, id){
@@ -239,7 +271,7 @@ const table_tarefas = {
 var wPrincipal =
           { "id": "wPrincipal",
             "rows": [ wcombo,
-            graf_pizza,
+            graf_linha,
                       table_tarefas
           
 					 
@@ -405,7 +437,7 @@ var JsonOriginal = JsonEntrada.notaVenda;
  for(i in JsonOriginal) {
   //alert("CAMPO= "+JSON.stringify(JsonOriginal[i], null, 4));
 
-  index = vjsonBling.findIndex(x => x.ano == JsonOriginal[i].ano); // TESTA SE EXISTE
+  index = vjsonBling.findIndex(x => x.mes == JsonOriginal[i].mes); // TESTA SE EXISTE
    //alert(index);
   var vValor = parseFloat(JsonOriginal[i].vlrVendas);
   var vvlrano2019 = 0;
@@ -413,19 +445,34 @@ var JsonOriginal = JsonEntrada.notaVenda;
   var vvlrano2021 = 0;
 
  //  alert("Mes="+JsonOriginal[i].mes+" Ano="+JsonOriginal[i].ano+" Valor="+vValor);
+   if (JsonOriginal[i].ano=="2019") {
+                  vvlrano2019 = vValor;                   
+              }
+   if (JsonOriginal[i].ano=="2020") {
+                  vvlrano2020 = vValor;                   
+   }
+   if (JsonOriginal[i].ano=="2021") {
+          vvlrano2021 = vValor;  
+          
+          wTotal += vValor;
 
+   }
 
           if (index == -1 ) {
             
 
-                vjsonBling.push({     
+                vjsonBling.push({ "mes": JsonOriginal[i].mes,     //n achou, criar um registro novo vJsonBlig
                                   "ano": JsonOriginal[i].ano,
-                                  "ValorTotal":vValor,});
+                                  "vlrano1": vvlrano2019,
+                                  "vlrano2": vvlrano2020,
+                                  "vlrano3": vvlrano2021});
 
           
           } else {
               
-               vjsonBling[index].ValorTotal += vValor; //
+               vjsonBling[index].vlrano1 += vvlrano2019; //Acumula valores
+               vjsonBling[index].vlrano2 += vvlrano2020; //
+               vjsonBling[index].vlrano3 += vvlrano2021; //
                 
           }
  };
@@ -435,8 +482,8 @@ console.log("NOVO JSON= "+JSON.stringify(vjsonBling, null, 4));
 
  
 
- $$("graf_pizza").clearAll();                                      
- $$("graf_pizza").parse(vjsonBling) ;
+ $$("graf_linha").clearAll();                                      
+ $$("graf_linha").parse(vjsonBling) ;
 
  
 };

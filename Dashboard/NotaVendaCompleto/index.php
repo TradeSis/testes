@@ -45,6 +45,7 @@ function chamaAJAX(wURL,wType="get",wdataType="json") {
 		})
 		return res;
 	}
+ 
 
 // #A2 - TITULO
 var wTitulo = {
@@ -79,7 +80,7 @@ var wcombo ={
      
 			"view": "toolbar",
 			"cols": [
-				{ "view": "label", "label": "Grafico Anos" },
+				{ "view": "label", "label": "Nota Venda Completo" },
 
 				{ view:"combo", width:300, id:"wcombo",
       label: 'Ano',  name:"ano"
@@ -142,40 +143,139 @@ var windices = {
   
 };
 
-var graf_pizza = {
-  id: "graf_pizza",
-  view: "chart",
-  type:"pie3D", //donut
-  value:"#ValorTotal#",
-  label:"#ano#",
-  pieInnerText:"#ValorTotal#",
-  tooltip:{
-                template:"#ano#"
-              },
-   //color:"#36abee",
-  
-  legend:{
-    width: 75,
-    align:"right",
-    valign:"middle",
-    template:"#ano#"
-  },
-  //pieInnerText:function(obj){ return obj.Xanos},
-  //pieInnerText:"#ano#",
-  shadow:0,
-  gradient:true,
-  //height:300,
-   
 
+var graf_Total = {
+          id:"graf_Total", 
+          view:"chart",
+          height:300,
+          type:"bar",
+          barWidth:60,
+          radius:2,
+          gradient:"rising",
+          xAxis:{
+            template:"'#mes#",
+            
+          },
+          yAxis:{
+            start:0,
+            step:10,
+            //end:100
+          },
+          legend:{
+            values:[{text:"2019",color:"#58dccd"},{text:"2020",color:"#a7ee70"},{text:"2021",color:"#36abee"}],
+            valign:"middle",
+            align:"right",
+            width:90,
+            layout:"y"
+          },
+          series:[
+            {
+              value:"#vlrano1#",
+              color: "#58dccd",
+              tooltip:{
+                template:"#vlrano1#"
+              }
+            },
+            {
+              value:"#vlrano2#",
+              color:"#a7ee70",
+              tooltip:{
+                template:"#vlrano2#"
+              }
+            },
+            {
+              value:"#vlrano3#",
+              color:"#36abee",
+              tooltip:{
+                template:"#vlrano3#"
+              }
+            }
+          ],
+                 
+  };
+
+  var graf_linha = {
+  id: "graf_linha",
+  view:"chart",
+          height:300,
+          type:"line",
+          barWidth:60,
+          radius:2,
+          gradient:"rising",
+          xAxis:{
+            template:"'#MesAno#"
+          },
+          yAxis:{
+            start:0,
+            step:10,
+            //end:100
+          },
+          series:[
+            {
+              value:"#VTotal#",
+              color: "#5fe05b",
+              tooltip:{
+                template:"#VTotal#"
+              },
+              line:{
+                color:"#5fe05b"
+              }
+              
+            }
+          ],
+        };
+
+var graf_pizza = {
+        id: "graf_pizza",
+        view: "chart",
+        type:"pie3D", //donut
+        value:"#ValorTotal#",
+        label:"#ano#",
+        pieInnerText:"#ValorTotal#",
+        tooltip:{
+                      template:"#ano#"
+                    },
+        //color:"#36abee",
+        
+        legend:{
+          width: 75,
+          align:"right",
+          valign:"middle",
+          template:"#ano#"
+        },
+        //pieInnerText:function(obj){ return obj.Xanos},
+        //pieInnerText:"#ano#",
+        shadow:0,
+        gradient:true,
+        //height:300,
+};
+       
+
+
+var Graficos = {
+  "id": "Graficos",
+  margin:10,
+    rows:[ graf_linha
+             
+         ]
+    };
+var Grafico2 = {
+  "id": "Grafico2",
+  margin:10,
+  cols:[
+    graf_Total, graf_pizza
+  ]
 };
 
+
+/* DATATABLE parcelas */
 const table_tarefas = {                 
     view:"datatable", 
     id:"table_tarefas",
     scroll:"y",
     select:true,
     hover:"myhover",
-    save: "/ts/testes/Dashboard/NotaVendaGraficos/save.php",
+    save: "/ts/testes/Dashboard/NotaVenda/save.php",
 
     columns:                           //# 1- Modificação!
         [
@@ -203,8 +303,8 @@ const table_tarefas = {
               "id": "qtdVendas",
               "header": "qtdVendas",
               "sort": "string" 
-            }
-          ,       
+            },
+          
         { header:"", template:"<span class='webix_icon wxi-close delete_icon'></span>", width:35}
 		//{ template:"<input class='delbtn' type='button' value='Delete'>", width:100 }
     ],
@@ -237,12 +337,16 @@ const table_tarefas = {
 }
 // #B1 - TELA PRINCIPAL
 var wPrincipal =
-          { "id": "wPrincipal",
+          {
+             "id": "wPrincipal",
             "rows": [ wcombo,
-            graf_pizza,
-                      table_tarefas
+                      windices,
+                      Graficos,
+                      Grafico2,
           
-					 
+					  {cols: 
+                        [table_tarefas]                         //# 8- Modificação!
+                      }
             ]
 
           };
@@ -333,15 +437,19 @@ var wCorpo = {
 
 // 1 - PRINCPAL PARTE
 var ui = {
-  responsive:true, 
+ 
+  //responsive:true, 
+  view: "scrollview",
+  scroll: "xy",
+body:{
     rows:[  wToolbar // #A1
           , wCorpo   // #C1
          ]
-    };
+}};
 
 // CHAMA WEBIX
 webix.ready(function(){
-
+  
       if (webix.CustomScroll)
             webix.CustomScroll.init();
 
@@ -350,6 +458,8 @@ webix.ready(function(){
 
       //webix.ui.fullScreen();
       webix.ui(ui);
+
+      
 
       
 
@@ -368,8 +478,15 @@ webix.ready(function(){
 
       carregaTableVendas(JsonEntrada);
 
+      carregaGraficoLinha(JsonEntrada);
 
-      carregaGraficoVendasTodosAnos(JsonEntrada);
+      carregaGraficoBarras(JsonEntrada);
+
+      carregaGraficoPizza(JsonEntrada)
+
+      
+
+      
 
       
         
@@ -382,7 +499,7 @@ $$(winId).getBody().focus();
 }
 
 function carregaJson(){
-  wJson = chamaAJAX("/ts/testes/Dashboard/NotaVendaGraficos/leitura.php"); 
+  wJson = chamaAJAX("/ts/testes/Dashboard/NotaVenda/leitura.php"); 
   return wJson;
 };
 
@@ -390,12 +507,61 @@ function carregaTableVendas(wJson){
   $$("table_tarefas").clearAll();
   $$("table_tarefas").parse(wJson.notaVenda);
 };
+//GRAFICOS
 
+//GRAFICO DE LINHA
+function carregaGraficoLinha(JsonEntrada){
+ 
+ var JsonOriginal = JsonEntrada.notaVenda;
+  vjsonLinha = [];
+ 
+  var index = 0;
+  var i = 0;
+ 
+  for(i in JsonOriginal) {
+   //alert("CAMPO= "+JSON.stringify(JsonOriginal[i], null, 4));
+ 
+   var AnoMes = JsonOriginal[i].mes + '/' + JsonOriginal[i].ano;
+ 
+   index = vjsonLinha.findIndex(x => x.MesAno == AnoMes); // TESTA SE EXISTE
+    //alert(index);
+   var vValor = parseFloat(JsonOriginal[i].vlrVendas);
+   
+   
+ 
+  //  alert("Mes="+JsonOriginal[i].mes+" Ano="+JsonOriginal[i].ano+" Valor="+vValor);
+ 
+ 
+           if (index == -1 ) {
+             
+ 
+            vjsonLinha.push({
+                   //nome da estrutura/variavel
+                                   "MesAno": AnoMes,
+                                   "VTotal": vValor
+                                });
+ 
+           
+           } else {
+               
+                //
+                vjsonLinha[index].VTotal += vValor;
+           }
+  };
+ 
+ 
+ console.log("NOVO JSON= "+JSON.stringify(vjsonLinha, null, 4));
+  
+  $$("graf_linha").clearAll();                                      
+  $$("graf_linha").parse(vjsonLinha) ;
+ 
+ };
+//GRAFICO DE BARRAS
 
-function carregaGraficoVendasTodosAnos(JsonEntrada){
+function carregaGraficoBarras(JsonEntrada){
 
 var JsonOriginal = JsonEntrada.notaVenda;
- vjsonBling = [];
+ vjsonBarras = [];
 
  var index = 0;
  var i = 0;
@@ -405,7 +571,68 @@ var JsonOriginal = JsonEntrada.notaVenda;
  for(i in JsonOriginal) {
   //alert("CAMPO= "+JSON.stringify(JsonOriginal[i], null, 4));
 
-  index = vjsonBling.findIndex(x => x.ano == JsonOriginal[i].ano); // TESTA SE EXISTE
+  index = vjsonBarras.findIndex(x => x.mes == JsonOriginal[i].mes); // TESTA SE EXISTE
+   //alert(index);
+  var vValor = parseFloat(JsonOriginal[i].vlrVendas);
+  var vvlrano2019 = 0;
+  var vvlrano2020 = 0;
+  var vvlrano2021 = 0;
+
+ //  alert("Mes="+JsonOriginal[i].mes+" Ano="+JsonOriginal[i].ano+" Valor="+vValor);
+   if (JsonOriginal[i].ano=="2019") {
+                  vvlrano2019 = vValor;                   
+              }
+   if (JsonOriginal[i].ano=="2020") {
+                  vvlrano2020 = vValor;                   
+   }
+   if (JsonOriginal[i].ano=="2021") {
+          vvlrano2021 = vValor;  
+          
+          wTotal += vValor;
+
+   }
+
+          if (index == -1 ) {
+            
+
+                vjsonBarras.push({ "mes": JsonOriginal[i].mes,     //n achou, criar um registro novo vJsonBlig
+                                  "ano": JsonOriginal[i].ano,
+                                  "vlrano1": vvlrano2019,
+                                  "vlrano2": vvlrano2020,
+                                  "vlrano3": vvlrano2021});
+
+          
+          } else {
+              
+               vjsonBarras[index].vlrano1 += vvlrano2019; //Acumula valores
+               vjsonBarras[index].vlrano2 += vvlrano2020; //
+               vjsonBarras[index].vlrano3 += vvlrano2021; //
+                
+          }
+ };
+
+
+console.log("NOVO JSON= "+JSON.stringify(vjsonBarras, null, 4));
+
+ $$("graf_Total").clearAll();                                      
+ $$("graf_Total").parse(vjsonBarras) ;
+};
+//GRAFICO DE PIZZA
+
+function carregaGraficoPizza(JsonEntrada){
+
+var JsonOriginal = JsonEntrada.notaVenda;
+ vjsonPizza = [];
+
+ var index = 0;
+ var i = 0;
+
+ var wTotal = 0;
+
+ for(i in JsonOriginal) {
+  //alert("CAMPO= "+JSON.stringify(JsonOriginal[i], null, 4));
+
+  index = vjsonPizza.findIndex(x => x.ano == JsonOriginal[i].ano); // TESTA SE EXISTE
    //alert(index);
   var vValor = parseFloat(JsonOriginal[i].vlrVendas);
   var vvlrano2019 = 0;
@@ -418,31 +645,28 @@ var JsonOriginal = JsonEntrada.notaVenda;
           if (index == -1 ) {
             
 
-                vjsonBling.push({     
+                vjsonPizza.push({     
                                   "ano": JsonOriginal[i].ano,
                                   "ValorTotal":vValor,});
 
           
           } else {
               
-               vjsonBling[index].ValorTotal += vValor; //
+               vjsonPizza[index].ValorTotal += vValor; //
                 
           }
  };
 
 
-console.log("NOVO JSON= "+JSON.stringify(vjsonBling, null, 4));
+console.log("NOVO JSON= "+JSON.stringify(vjsonPizza, null, 4));
 
  
 
  $$("graf_pizza").clearAll();                                      
- $$("graf_pizza").parse(vjsonBling) ;
+ $$("graf_pizza").parse(vjsonPizza) ;
 
  
 };
-
-/*************** */
-
 
 function carregaAnos(JsonEntrada){
 

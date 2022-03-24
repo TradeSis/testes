@@ -96,7 +96,13 @@ fwrite($fp, $webix_operation."\n");
         $valor=$_POST['valor'];
         $horas=$_POST['horas'];
         $vlrHora=$_POST['vlrHora'];
-        $statusSer=$_POST['statusSer'];        
+        $statusSer=$_POST['statusSer'];
+        
+      /*   $data_timestamp = strtotime($dataInclusao);
+        echo "Timestamp da data $data_timestamp";
+        $data_nova = date("d/m/Y", $data_timestamp); */
+
+        date("d/m/Y",strtotime($dataInclusao));
 
         $sql  = "INSERT INTO `servicos` (`empresa`, `clienteCodigo`, `titulo`, `descricao`, `dataInclusao`, 
         `dataAprovacao`, `dataEntrega`, `dataEncerramento`, `valor`, `horas`, `vlrHora`, `statusSer`)" ;

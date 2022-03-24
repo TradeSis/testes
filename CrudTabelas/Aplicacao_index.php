@@ -110,7 +110,7 @@ var wPesquisa = {
                 "height": 0,
                 click:function(){ showForm("win_aplicacao");
                 
-                  $$("aplicacao").define("disabled", true); }                        
+                  $$("aplicacao").define("disabled", false); }                        
               }
             ]
           }
@@ -185,7 +185,7 @@ const table_aplicacao = {
 
 			  showForm("win_aplicacao")
         
-        $$("aplicacao").define("disabled", false);
+        $$("aplicacao").define("disabled", true);
 
             $$("form_aplicacao").setValues(values);
 
@@ -206,7 +206,7 @@ const form_aplicacao = {
  
     elements:[                                              
         { type:"section", template:"Adicionar Aplicação"},
-        { view:"text", name:"aplicacao", label:"aplicacao"},
+        { view:"text", id:"aplicacao", name:"aplicacao", label:"aplicacao"},
         
         {
             margin:10, cols:[

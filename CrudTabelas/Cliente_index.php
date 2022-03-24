@@ -106,7 +106,10 @@ var wPesquisa = {
 				"width":120,
                 "height": 0,
                 click:function(){ showForm("win_usuario");
-                  $$("empresa").define("disabled", false); }                         
+                  $$("empresa").define("disabled", true);
+                  $$("clienteCodigo").define("disabled", false);
+                  $$("nomeCliente").define("disabled", false);
+         }                         
               }
             ]
           }
@@ -190,6 +193,10 @@ const table_usuario = {
 			let values = $$("table_usuario").getItem(id);       
 
 			  showForm("win_usuario");
+
+                  $$("empresa").define("disabled", true);
+                  $$("clienteCodigo").define("disabled", true);
+                  $$("nomeCliente").define("disabled", true);
 			
             $$("form_usuario").setValues(values);
 
@@ -210,9 +217,9 @@ const form_usuario = {
  
     elements:[                                               
         { type:"section", template:"Adicionar Clientes"},
-        //{ view:"text", name:"empresa", label:"empresa", invalidMessage:"Should be between 1970 and current" },
-        { view:"text", name:"clienteCodigo", label:"clienteCodigo", invalidMessage:"Should be between 1970 and current" },
-        { view:"text", name:"nomeCliente", label:"nomeCliente", invalidMessage:"Should be between 1970 and current" },
+        { view:"text", id:"empresa", name:"empresa", label:"empresa"},
+        { view:"text", id:"clienteCodigo", name:"clienteCodigo", label:"clienteCodigo"},
+        { view:"text", id:"nomeCliente", name:"nomeCliente", label:"nomeCliente"},
         {
             margin:10, cols:[
                 { view:"button", id:"btn_save", value:"Save",click:saveUsuario},             

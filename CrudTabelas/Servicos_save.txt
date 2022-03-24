@@ -1,18 +1,19 @@
 conectando mysql=u384787522_tswebdev
 ESTOU AQUI
-ID = 6
-empresa = TRADESIS
+empresa = NOVA
 clienteCodigo = 
-titulo = 2
-descricao = 2
-dataInclusao = 0000-00-00
-dataAprovacao = 0000-00-00
-dataEntrega = 0000-00-00
-dataEncerramento = 0000-00-00
-valor = 2.00
-horas = 2
-vlrHora = 2.00
-statusSer = 2
-id = 1647301750018
-webix_operation = delete
-delete
+titulo = teste data
+descricao = formato
+dataInclusao = 22-03-2022
+dataAprovacao = 25-03-2022
+dataEntrega = 22-05-2022
+dataEncerramento = 27-03-2022
+valor = 500
+horas = 1
+vlrHora = 25
+statusSer = aprovado
+webix_operation = insert
+insert
+ SQL INSERT INTO `servicos` (`empresa`, `clienteCodigo`, `titulo`, `descricao`, `dataInclusao`, 
+        `dataAprovacao`, `dataEntrega`, `dataEncerramento`, `valor`, `horas`, `vlrHora`, `statusSer`) VALUES ('NOVA', '', 'teste data', 'formato', '22-03-2022',
+        '25-03-2022', '22-05-2022', '27-03-2022', '500', '1', '25', 'aprovado' )

@@ -1,7 +1,9 @@
 conectando mysql=u384787522_tswebdev
 ESTOU AQUI
-empresa = TESTE
-aplicacao = Nova Aplicação
-webix_operation = insert
-insert
- SQL INSERT INTO `aplicacaoEmpresa` ( `empresa`, `aplicacao`) VALUES ( 'TESTE', 'Nova Aplicação')
+empresa = NOVA
+aplicacao = Nova Aplicação 1
+id = 1647897903263
+webix_operation = update
+update
+ SQL UPDATE aplicacaoEmpresa SET empresa='NOVA', aplicacao='Nova Aplicação 1' WHERE empresa=NOVA
+Error: UPDATE aplicacaoEmpresa SET empresa='NOVA', aplicacao='Nova Aplicação 1' WHERE empresa=NOVA<br>Unknown column 'NOVA' in 'where clause'

@@ -106,7 +106,7 @@ var wPesquisa = {
 				"width":120,
                 "height": 0,
                 click:function(){ showForm("win_statusServicos");
-                  $$("empresa").define("disabled", false); }                         
+                  $$("statusSer").define("disabled", false); }                         
               }
             ]
           }
@@ -177,6 +177,8 @@ const table_statusServicos = {
 			let values = $$("table_statusServicos").getItem(id);       
 
 			  showForm("win_statusServicos");
+
+        $$("statusSer").define("disabled", true);
 			
             $$("form_statusServicos").setValues(values);
 
@@ -198,7 +200,7 @@ const form_statusServicos = {
  
     elements:[                                               
         { type:"section", template:"Status Serviço"},
-        { view:"text", name:"statusSer", label:"Status", disabled:true},
+        { view:"text", id:"statusSer", name:"statusSer", label:"Status"},
         {
             margin:10, cols:[
                 { view:"button", id:"btn_save", value:"Save",click:saveUsuario},             
