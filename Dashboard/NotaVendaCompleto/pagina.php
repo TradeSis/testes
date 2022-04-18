@@ -9,14 +9,15 @@
 	<link rel="stylesheet" type="text/css" href="/ts/js/webix/codebase/skins/flat.min.css">
 
 
-
+	<!-- Design -->
+	<link rel="stylesheet" type="text/css" href="/ts/testes/applucas/menu.css">	
 	<style>
 		
 	
 				
 
 	</style>
-	<script type="text/javascript"          src="/ts/testes/helio/graf3.js"></script>
+	<script type="text/javascript"          src="/ts/testes/Dashboard/NotaVendaCompleto/pagina.js"></script>
 	
 </head>
 <body></body>
